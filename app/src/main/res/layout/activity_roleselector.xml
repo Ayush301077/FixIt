@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:background="#FDD3D3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#1C2452"
     tools:context=".RoleSelectorActivity">
 
 
@@ -13,23 +13,11 @@
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="116dp"
-        android:layout_marginTop="204dp"
-        android:text="Select the purpose"
-        android:textColor="#F44336"
+        android:layout_marginStart="130dp"
+        android:layout_marginTop="348dp"
+        android:text="Select your role"
         android:textSize="24sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="172dp"
-        android:layout_marginTop="240dp"
-        android:text="of using"
-        android:textColor="#F44336"
-        android:textSize="24sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -37,11 +25,11 @@
         android:id="@+id/textView3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="180dp"
-        android:layout_marginTop="292dp"
+        android:layout_marginStart="172dp"
+        android:layout_marginTop="224dp"
         android:text="FixIt"
-        android:textColor="#EF5145"
         android:textSize="34sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
