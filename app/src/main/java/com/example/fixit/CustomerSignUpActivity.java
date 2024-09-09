@@ -57,8 +57,11 @@ public class CustomerSignUpActivity extends AppCompatActivity {
                                 Toast.makeText(CustomerSignUpActivity.this, "Registration failed.", Toast.LENGTH_SHORT).show();
                             }
                         });
+
             }
         });
+
+        //jihihi
 
         signInTxtView.setOnClickListener(new View.OnClickListener() {
             @Override
