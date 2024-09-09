@@ -13,10 +13,19 @@
         android:theme="@style/Base.Theme.FixIt"
         tools:targetApi="31">
         <activity
-            android:name=".ServiceProviderActivity"
+            android:name=".ServiceProviderDashboard"
             android:exported="false" />
         <activity
-            android:name=".CustomerSelection"
+            android:name=".CustomerSignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerDashboardActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ServiceProviderSigninActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CustomerSignInActivity"
             android:exported="false" />
         <activity
             android:name=".RoleSelectorActivity"

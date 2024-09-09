@@ -20,15 +20,13 @@ public class RoleSelectorActivity extends AppCompatActivity {
         servicetaker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RoleSelectorActivity.this, CustomerSelection.class));
-                finish();
+                startActivity(new Intent(RoleSelectorActivity.this, CustomerSignInActivity.class));
             }
         });
         serviceprovider.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RoleSelectorActivity.this, ServiceProviderActivity.class));
-                finish();
+                startActivity(new Intent(RoleSelectorActivity.this, ServiceProviderSigninActivity.class));
             }
         });
 
