@@ -14,5 +14,7 @@ public class CustomerDashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_dashboard);
+
+        //code from devraj laptop
     }
 }
