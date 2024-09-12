@@ -7,28 +7,130 @@
     tools:context=".HomeFragment"
     >
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constlayouthome"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_gravity="top"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="100dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="16dp"
-        android:background="@color/orange"
-        android:elevation="8dp"
-        app:cardCornerRadius="16dp"
-        app:cardElevation="8dp">
+        android:layout_height="match_parent"
+        android:background="@color/white">
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/orange"
+            android:elevation="8dp"
+            app:cardCornerRadius="16dp"
+
+            app:cardElevation="8dp"
+            app:layout_constraintLeft_toLeftOf="@+id/constlayouthome"
+            app:layout_constraintTop_toTopOf="@id/constlayouthome">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#DEDEDE">
+
+                <TextView
+                    android:id="@+id/welcomemsg"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="120dp"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Welcome to FixIt"
+                    android:textAlignment="center"
+                    android:textColor="#F44336"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="95dp"
+                    android:layout_marginTop="4dp"
+                    android:fontFamily="sans-serif-smallcaps"
+                    android:text="Your Gateway to New Opportunities."
+                    android:textColor="#F44336"
+                    android:textSize="15sp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/welcomemsg" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:id="@+id/newRequestsDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/roundcorners"
+            android:fontFamily="sans-serif"
+            android:paddingLeft="5dp"
+            android:paddingTop="3dp"
+            android:text="New work requests                                                            ▼"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerview"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:background="@drawable/roundcorners"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/newRequestsDropdown" />
+
+        <TextView
+            android:id="@+id/acceptedRequestsDropdown"
+            android:layout_width="match_parent"
+            android:layout_height="33dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/roundcorners"
+            android:paddingLeft="5dp"
+            android:paddingTop="3dp"
+            android:text="Accepted requests                                                             ▼"
+            android:textSize="16sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/recyclerview" />
 
         <LinearLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="16dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent">
 
+            <!-- TextView for displaying status -->
             <TextView
+                android:id="@+id/statusText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ayush Soni" />
+                android:layout_marginEnd="8dp"
+                android:text="Available"
+                android:textColor="@color/black"
+                android:textSize="18sp" />
+
+            <!-- SwitchCompat -->
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/statusSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:thumbTint="@color/orange"
+                android:trackTint="@color/light_green" />
+
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>
