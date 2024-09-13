@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="98dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#FDE7E7"
+        android:elevation="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Service Date : "
+            android:textColor="@color/orange"
+            android:textSize="15sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="5dp"/>
+        <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="09/11/2024"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="100dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Customer :"
+            android:textColor="@color/orange"
+            android:textSize="15sp"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="5dp" />
+        <TextView
+            android:id="@+id/customer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Ayush Soni"
+            android:layout_marginTop="25dp"
+            android:layout_marginLeft="100dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="@color/orange"
+            android:text="Service : "
+            android:layout_marginTop="45dp"
+            android:layout_marginLeft="5dp"/>
+        <TextView
+            android:id="@+id/service"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="Plumbing"
+            android:layout_marginTop="45dp"
+            android:layout_marginLeft="100dp"/>
+
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contact : "
+            android:textColor="@color/orange"
+            android:textSize="15sp"
+            android:layout_marginTop="65dp"
+            android:layout_marginLeft="5dp"/>
+
+        <TextView
+            android:id="@+id/contact"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:text="6353805504"
+            android:layout_marginTop="65dp"
+            android:layout_marginLeft="100dp"/>
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Earned :"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:textColor="@color/orange"
+            android:layout_marginLeft="250dp"
+            android:layout_marginTop="30dp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="₹"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginLeft="311dp"
+            android:layout_marginTop="30dp"/>
+        <TextView
+            android:id="@+id/earned"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginLeft="320dp"
+            android:layout_marginTop="30dp"/>
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

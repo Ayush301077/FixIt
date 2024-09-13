@@ -2,6 +2,7 @@ package com.example.fixit;
 
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -25,6 +26,7 @@ public class HomeFragment extends Fragment {
     private TextView statusText;
     TextView newRequestsDropdown, acceptedRequestsDropdown;
     ArrayList<RequestModel> requestArray = new ArrayList<>();
+    ArrayList<RequestModel> acceptedArray = new ArrayList<>();
 
     TextView textview;
     public HomeFragment() {
@@ -74,19 +76,49 @@ public class HomeFragment extends Fragment {
         NewRequestsAdapter adapter = new NewRequestsAdapter(getContext(), requestArray);
         recyclerView.setAdapter(adapter);
 
-        boolean isVisible = true;
+
         newRequestsDropdown.setOnClickListener(new View.OnClickListener() {
             boolean isVisible = true;
             @Override
             public void onClick(View view) {
-                if(isVisible)
-                    recyclerView.setVisibility(view.GONE);
+                if(isVisible){
+                    newRequestsDropdown.setBackgroundResource(R.drawable.roundcorners);
+                    recyclerView.setVisibility(view.GONE);}
                 else
-                    recyclerView.setVisibility(view.VISIBLE);
+                {
+                    newRequestsDropdown.setBackgroundResource(R.drawable.roundcorners_onclick);
+                    recyclerView.setVisibility(view.VISIBLE);}
                 isVisible = !isVisible;
             }
         });
 
 
+
+        RecyclerView recyclerView2 = view.findViewById(R.id.recyclerview2);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        acceptedArray.add(new RequestModel("Soni Ayush V", "6353805504", "College road", "Nadiad", "Plumbing"));
+        acceptedArray.add(new RequestModel("Soni Vimal N", "9574390091", "Kansa", "Visnagar", "Plumbing"));
+
+        AcceptedRequestsAdapter adapter2 = new AcceptedRequestsAdapter(getContext(), acceptedArray);
+        recyclerView2.setAdapter(adapter2);
+
+        boolean isVisible2 = true;
+        acceptedRequestsDropdown.setOnClickListener(new View.OnClickListener() {
+            boolean isVisible2 = true;
+            @Override
+            public void onClick(View view) {
+
+                if(isVisible2){
+                    acceptedRequestsDropdown.setBackgroundResource(R.drawable.roundcorners);
+                    recyclerView2.setVisibility(view.GONE);
+                }
+                else
+                {
+                    acceptedRequestsDropdown.setBackgroundResource(R.drawable.roundcorners_onclick);
+                    recyclerView2.setVisibility(view.VISIBLE);}
+                isVisible2 = !isVisible2;
+            }
+        });
     }
 }

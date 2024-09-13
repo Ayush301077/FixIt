@@ -1,14 +1,90 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".EarningsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="earnings" />
+        tools:context=".EarningsFragment"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/earningsLayout"
+        android:background="@color/white">
 
-</FrameLayout>
+    <TextView
+        android:id="@+id/EarningsTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        android:text="Earnings from FixIt"
+        android:layout_marginTop="10dp"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardView"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:backgroundTint="#FDE7E7"
+        android:elevation="8dp"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="50dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/EarningsTextView">
+
+
+        <ImageView
+            android:layout_marginTop="7dp"
+            android:id="@+id/imageView4"
+            android:layout_width="45dp"
+            android:layout_height="49dp"
+            android:src="@drawable/baseline_currency_rupee_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:text="TextView"
+            android:textSize="45sp"
+            android:textColor="@color/orange"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Total Earnings"
+            android:layout_marginTop="55dp"
+            android:layout_marginLeft="15dp"
+            android:textSize="16sp"/>
+    </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/EarningsTextView2"
+        android:layout_width="match_parent"
+        android:layout_height="33dp"
+        android:layout_marginStart="5dp"
+        android:layout_marginTop="16dp"
+        android:background="@drawable/roundcorners"
+        android:fontFamily="sans-serif"
+        android:paddingLeft="5dp"
+        android:paddingTop="3dp"
+        android:text="Recent Earnings"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recentEarningsRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/EarningsTextView2"
+        tools:layout_editor_absoluteX="30dp" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
