@@ -82,10 +82,12 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 if(isVisible){
+                    newRequestsDropdown.setText("New work requests                                                            ▼");
                     newRequestsDropdown.setBackgroundResource(R.drawable.roundcorners);
                     recyclerView.setVisibility(view.GONE);}
                 else
                 {
+                    newRequestsDropdown.setText("New work requests                                                            ▲");
                     newRequestsDropdown.setBackgroundResource(R.drawable.roundcorners_onclick);
                     recyclerView.setVisibility(view.VISIBLE);}
                 isVisible = !isVisible;
@@ -110,11 +112,13 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
                 if(isVisible2){
+                    acceptedRequestsDropdown.setText("Accepted requests                                                            ▼");
                     acceptedRequestsDropdown.setBackgroundResource(R.drawable.roundcorners);
                     recyclerView2.setVisibility(view.GONE);
                 }
                 else
                 {
+                    acceptedRequestsDropdown.setText("Accepted requests                                                            ▲");
                     acceptedRequestsDropdown.setBackgroundResource(R.drawable.roundcorners_onclick);
                     recyclerView2.setVisibility(view.VISIBLE);}
                 isVisible2 = !isVisible2;
