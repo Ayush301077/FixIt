@@ -7,4 +7,24 @@
     android:layout_height="match_parent"
     tools:context=".CustomerDashboardActivity">
 
+    <FrameLayout
+        android:id="@+id/frameLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="?attr/actionBarSize"
+        />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bnView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/btm_nav_customer_dashboard"
+        app:itemIconTint="@color/black"
+        android:background="@color/orange"
+        app:labelVisibilityMode="labeled"
+        app:itemTextColor="@color/black"
+        app:itemIconSize="20dp"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

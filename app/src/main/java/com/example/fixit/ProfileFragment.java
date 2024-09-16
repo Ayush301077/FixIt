@@ -1,5 +1,6 @@
 package com.example.fixit;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -11,6 +12,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
+
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 
@@ -18,6 +23,8 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
 
     ArrayList<ServicesModel> serviceArray = new ArrayList<>();
+    Button logout;
+    FirebaseAuth auth;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -34,6 +41,8 @@ public class ProfileFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        auth = FirebaseAuth.getInstance();
+        logout = view.findViewById(R.id.logout);
         serviceArray.add(new ServicesModel("Plumber"));
         serviceArray.add(new ServicesModel("Electrician"));
         serviceArray.add(new ServicesModel("Painter"));
@@ -44,5 +53,15 @@ public class ProfileFragment extends Fragment {
         ProfileServicesAdapter adapter = new ProfileServicesAdapter(getContext(), serviceArray);
         recyclerView.setAdapter(adapter);
 
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                auth.signOut();
+                Toast.makeText(getContext(), "Logged out", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(getContext(), LoginActivity.class));
+                getActivity().finish();
+            }
+        });
     }
 }

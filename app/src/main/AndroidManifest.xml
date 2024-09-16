@@ -2,6 +2,10 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Permissions required for Firebase Authentication -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,30 +17,33 @@
         android:theme="@style/Base.Theme.FixIt"
         tools:targetApi="31">
 
-        <activity
-            android:name=".ServiceProviderSignUpActivity"
-            android:exported="false" />
+
+        <!-- Service Provider Dashboard -->
         <activity
             android:name=".ServiceProviderDashboard"
             android:exported="false" />
+
+        <!-- Registration Activity -->
         <activity
-            android:name=".CustomerSignUpActivity"
+            android:name=".RegistrationActivity"
             android:exported="false" />
+
+        <!-- Customer Dashboard Activity -->
         <activity
             android:name=".CustomerDashboardActivity"
             android:exported="false" />
+
+        <!-- Login Activity -->
         <activity
-            android:name=".ServiceProviderSigninActivity"
+            android:name=".LoginActivity"
             android:exported="false" />
-        <activity
-            android:name=".CustomerSignInActivity"
-            android:exported="false" />
+
+        <!-- Main Activity -->
         <activity
             android:name=".RoleSelectorActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>

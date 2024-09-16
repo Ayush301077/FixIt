@@ -20,7 +20,7 @@
         android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/btm_nav_customer_dashboard"
+        app:menu="@menu/btm_nav_serviceprovider_dashboard"
         app:itemIconTint="@color/black"
         android:background="@color/orange"
         app:labelVisibilityMode="labeled"

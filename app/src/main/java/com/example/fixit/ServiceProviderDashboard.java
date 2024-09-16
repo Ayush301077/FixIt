@@ -30,11 +30,10 @@ public class ServiceProviderDashboard extends AppCompatActivity {
         setContentView(R.layout.activity_service_provider_dashboard);
 
         ActionBar actionBar = getSupportActionBar();
-        actionBar.setTitle("Home");
         ColorDrawable colorDrawable
                 = new ColorDrawable(Color.parseColor("#F44336"));
         actionBar.setBackgroundDrawable(colorDrawable);
-
+        actionBar.setTitle("Home");
         bnView = findViewById(R.id.bnView);
         frameLayout = findViewById(R.id.frameLayout);
 
@@ -47,26 +46,27 @@ public class ServiceProviderDashboard extends AppCompatActivity {
                 if(id == R.id.home)
                 {
                     loadFragment(new HomeFragment(), 1);
-
+                    actionBar.setTitle("Home");
                 }
                 else if(id == R.id.aboutus)
                 {
                     loadFragment(new AboutUsFragment(), 0);
-
+                    actionBar.setTitle("About Us");
                 }
                 else if(id == R.id.chats)
                 {
                     loadFragment(new ChatsFragment(), 0);
-
+                    actionBar.setTitle("Chats");
                 }
                 else if(id == R.id.earnings)
                 {
                     loadFragment(new EarningsFragment(), 0);
-
+                    actionBar.setTitle("Earnings");
                 }
                 else
                 {
                     loadFragment(new ProfileFragment(), 0);
+                    actionBar.setTitle("Profile");
                 }
 
                 return true;

@@ -2,33 +2,55 @@ package com.example.fixit;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.PersistableBundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class RoleSelectorActivity extends AppCompatActivity {
 
+    Button Service_Taker, Service_Provider;
+    FirebaseAuth auth;
+    FirebaseUser currentUser;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_roleselector);
+        auth = FirebaseAuth.getInstance();
+        currentUser = auth.getCurrentUser();
 
-        Button servicetaker = findViewById(R.id.button1);
-        Button serviceprovider = findViewById(R.id.button2);
+        Service_Taker = findViewById(R.id.button1);
+        Service_Provider = findViewById(R.id.button2);
 
-        servicetaker.setOnClickListener(new View.OnClickListener() {
+
+        if (currentUser == null) {
+            startActivity(new Intent(RoleSelectorActivity.this, LoginActivity.class));
+            finish();
+            return;
+        }
+
+        Service_Taker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(RoleSelectorActivity.this, CustomerSignInActivity.class));
-            }
-        });
-        serviceprovider.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(RoleSelectorActivity.this, ServiceProviderSigninActivity.class));
+                String userid = currentUser.getUid();
+                startActivity(new Intent(RoleSelectorActivity.this, CustomerDashboardActivity.class));
             }
         });
 
+        Service_Provider.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String userid = currentUser.getUid();
+                startActivity(new Intent(RoleSelectorActivity.this, ServiceProviderDashboard.class));
+            }
+        });
     }
 }
