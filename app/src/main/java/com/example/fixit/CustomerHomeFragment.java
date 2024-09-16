@@ -24,6 +24,7 @@ public class CustomerHomeFragment extends Fragment {
     private int[] images = {R.drawable.image1, R.drawable.image2, R.drawable.image3};
     private int currentPage = 0;
     ArrayList<CategoryModel> categoryarray = new ArrayList<>();
+    ArrayList<ServiceProviderInfo> serviceProviderInfoArrayList = new ArrayList<>();
     RecyclerView categoryRecycler;
 
     public CustomerHomeFragment() {
@@ -57,6 +58,19 @@ public class CustomerHomeFragment extends Fragment {
 
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoryarray,getContext());
         categoryRecycler.setAdapter(categoriesAdapter);
+
+
+        RecyclerView serviceproviderinfo = view.findViewById(R.id.serviceproviderlist);
+        serviceproviderinfo.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        serviceProviderInfoArrayList.add(new ServiceProviderInfo("Ayush Soni", "Electrician", "6353805504", "Nadiad", "4.7", R.drawable.profile_icon));
+        serviceProviderInfoArrayList.add(new ServiceProviderInfo("Ayush Soni", "Electrician", "6353805504", "Nadiad", "4.7", R.drawable.profile_icon));
+        serviceProviderInfoArrayList.add(new ServiceProviderInfo("Ayush Soni", "Electrician", "6353805504", "Nadiad", "4.7", R.drawable.profile_icon));
+        serviceProviderInfoArrayList.add(new ServiceProviderInfo("Ayush Soni", "Electrician", "6353805504", "Nadiad", "4.7", R.drawable.profile_icon));
+
+
+        ServiceProviderInfoAdapter adapter = new ServiceProviderInfoAdapter(getContext(),serviceProviderInfoArrayList);
+        serviceproviderinfo.setAdapter(adapter);
     }
 
     @Override
