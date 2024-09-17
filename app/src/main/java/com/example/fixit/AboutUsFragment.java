@@ -16,7 +16,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 public class AboutUsFragment extends Fragment {
-
+    //from devraj
     TextView phoneno, email;
     ImageView facebook, instagram, youtube;
 
