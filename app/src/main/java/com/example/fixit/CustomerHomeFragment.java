@@ -1,5 +1,6 @@
 package com.example.fixit;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -7,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -26,6 +29,7 @@ public class CustomerHomeFragment extends Fragment {
     ArrayList<CategoryModel> categoryarray = new ArrayList<>();
     ArrayList<ServiceProviderInfo> serviceProviderInfoArrayList = new ArrayList<>();
     RecyclerView categoryRecycler;
+    TextView categoriesViewall;
 
     public CustomerHomeFragment() {
         // Required empty public constructor
@@ -39,6 +43,7 @@ public class CustomerHomeFragment extends Fragment {
 
         viewPager = root.findViewById(R.id.viewPager);
         customIndicatorLayout = root.findViewById(R.id.custom_indicator);
+
 
         return root;
     }
@@ -71,6 +76,15 @@ public class CustomerHomeFragment extends Fragment {
 
         ServiceProviderInfoAdapter adapter = new ServiceProviderInfoAdapter(getContext(),serviceProviderInfoArrayList);
         serviceproviderinfo.setAdapter(adapter);
+
+
+        categoriesViewall = view.findViewById(R.id.categoriesViewall);
+        categoriesViewall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), CategoriesList.class));
+            }
+        });
     }
 
     @Override

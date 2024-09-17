@@ -23,7 +23,7 @@ import java.util.ArrayList;
 public class ProfileFragment extends Fragment {
 
     ArrayList<ServicesModel> serviceArray = new ArrayList<>();
-    Button logout;
+    Button logout, uploadData, editProfile;
     FirebaseAuth auth;
 
     public ProfileFragment() {
@@ -43,9 +43,13 @@ public class ProfileFragment extends Fragment {
 
         auth = FirebaseAuth.getInstance();
         logout = view.findViewById(R.id.logout);
+        uploadData = view.findViewById(R.id.uploadData);
+        editProfile = view.findViewById(R.id.editProfilebutton);
         serviceArray.add(new ServicesModel("Plumber"));
         serviceArray.add(new ServicesModel("Electrician"));
         serviceArray.add(new ServicesModel("Painter"));
+
+        String userId = getActivity().getIntent().getStringExtra("userId");
 
         RecyclerView recyclerView = view.findViewById(R.id.servicesRecyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -53,6 +57,14 @@ public class ProfileFragment extends Fragment {
         ProfileServicesAdapter adapter = new ProfileServicesAdapter(getContext(), serviceArray);
         recyclerView.setAdapter(adapter);
 
+        editProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getActivity(), ServiceproviderEditProfile.class);
+                intent.putExtra("userId", userId);
+                startActivity(intent);
+            }
+        });
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,5 +75,13 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
+
+        uploadData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
     }
 }

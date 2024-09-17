@@ -29,7 +29,7 @@
         app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/editProfilebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -49,7 +49,7 @@
         android:textStyle="bold"
         android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/editProfilebutton" />
 
     <TextView
         android:id="@+id/textView17"
@@ -60,7 +60,7 @@
         android:text="TextView"
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView16"
-        app:layout_constraintTop_toBottomOf="@+id/button" />
+        app:layout_constraintTop_toBottomOf="@+id/editProfilebutton" />
 
     <TextView
         android:id="@+id/textView18"
@@ -175,11 +175,20 @@
         app:layout_constraintTop_toBottomOf="@id/textView25"/>
 
     <Button
+        android:id="@+id/uploadData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload data"
+        android:layout_marginBottom="16dp"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+
+    <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="66dp"
         android:text="Log out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

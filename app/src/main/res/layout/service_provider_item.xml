@@ -100,6 +100,14 @@
             android:layout_marginTop="65dp"
             android:text="/ 5" />
 
+        <ImageView
+            android:id="@+id/imageView9"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginLeft="350dp"
+            android:layout_marginTop="20dp"
+            app:srcCompat="@drawable/empty_heart" />
+
     </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

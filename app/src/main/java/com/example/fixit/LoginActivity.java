@@ -45,8 +45,11 @@ public class LoginActivity extends AppCompatActivity {
                         .addOnCompleteListener(task -> {
                             if (task.isSuccessful()) {
                                 FirebaseUser user = auth.getCurrentUser();
+                                String userId = user.getUid();
                                 Log.d(TAG, "signInWithEmail:success");
-                                startActivity(new Intent(LoginActivity.this, RoleSelectorActivity.class));
+                                Intent intent = new Intent(LoginActivity.this, RoleSelectorActivity.class);
+                                intent.putExtra("userId", userId);
+                                startActivity(intent);
                                 finish();
                             } else {
                                 Log.w(TAG, "signInWithEmail:failure", task.getException());

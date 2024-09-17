@@ -27,6 +27,8 @@ public class RoleSelectorActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         currentUser = auth.getCurrentUser();
 
+//        String userId = getIntent().getStringExtra("userId");
+
         Service_Taker = findViewById(R.id.button1);
         Service_Provider = findViewById(R.id.button2);
 
@@ -41,7 +43,9 @@ public class RoleSelectorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String userid = currentUser.getUid();
-                startActivity(new Intent(RoleSelectorActivity.this, CustomerDashboardActivity.class));
+                Intent intent = new Intent(RoleSelectorActivity.this, CustomerDashboardActivity.class);
+                intent.putExtra("userId", userid);
+                startActivity(intent);
             }
         });
 
@@ -49,7 +53,9 @@ public class RoleSelectorActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String userid = currentUser.getUid();
-                startActivity(new Intent(RoleSelectorActivity.this, ServiceProviderDashboard.class));
+                Intent intent = new Intent(RoleSelectorActivity.this, ServiceProviderDashboard.class);
+                intent.putExtra("userId", userid);
+                startActivity(intent);
             }
         });
     }
