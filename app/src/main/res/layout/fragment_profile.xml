@@ -8,35 +8,38 @@
     android:background="#FDD3D3">
 
 
-    <ImageView
-        android:id="@+id/imageView8"
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profile_image"
         android:layout_width="130dp"
         android:layout_height="130dp"
         android:layout_marginTop="16dp"
         android:src="@drawable/profile_icon"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/CircleImage"/>
 
     <TextView
-        android:id="@+id/textView13"
+        android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Ayush Soni"
+        android:text="Name"
         android:textSize="20sp"
+        android:layout_marginTop="5dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+        app:layout_constraintTop_toBottomOf="@+id/profile_image" />
 
     <Button
         android:id="@+id/editProfilebutton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="38dp"
         android:text="Edit Profile"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView13" />
+        app:layout_constraintTop_toBottomOf="@+id/name" />
 
     <TextView
         android:id="@+id/textView16"
@@ -52,12 +55,12 @@
         app:layout_constraintTop_toBottomOf="@+id/editProfilebutton" />
 
     <TextView
-        android:id="@+id/textView17"
+        android:id="@+id/ratings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="44dp"
-        android:text="TextView"
+        android:text=""
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView16"
         app:layout_constraintTop_toBottomOf="@+id/editProfilebutton" />
@@ -76,15 +79,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textView16" />
 
     <TextView
-        android:id="@+id/textView19"
+        android:id="@+id/contact"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text=""
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView18"
-        app:layout_constraintTop_toBottomOf="@+id/textView17" />
+        app:layout_constraintTop_toBottomOf="@+id/ratings" />
 
     <TextView
         android:id="@+id/textView20"
@@ -100,15 +103,15 @@
         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
     <TextView
-        android:id="@+id/textView21"
+        android:id="@+id/email"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="38dp"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text=""
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView20"
-        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+        app:layout_constraintTop_toBottomOf="@+id/contact" />
 
     <TextView
         android:id="@+id/textView22"
@@ -124,33 +127,24 @@
         app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
     <TextView
-        android:id="@+id/textView23"
+        android:id="@+id/street"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
         android:layout_marginTop="24dp"
-        android:text="TextView"
+        android:text=""
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/textView21" />
+        app:layout_constraintTop_toBottomOf="@+id/email" />
     <TextView
-        android:id="@+id/textView24"
+        android:id="@+id/city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="18dp"
-        android:text="TextView"
+        android:text=""
         android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/textView23" />
-    <TextView
-        android:id="@+id/textView25"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="18dp"
-        android:text="TextView"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@+id/textView22"
-        app:layout_constraintTop_toBottomOf="@+id/textView24" />
+        app:layout_constraintTop_toBottomOf="@+id/street" />
 
     <TextView
         android:id="@+id/textView26"
@@ -165,30 +159,33 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView22" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/servicesRecyclerview"
+    <TextView
+        android:id="@+id/services"
         android:layout_width="wrap_content"
-        android:layout_height="150dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginLeft="18dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="50dp"
+        android:text=""
+        android:textSize="20sp"
         app:layout_constraintLeft_toRightOf="@id/textView26"
-        app:layout_constraintTop_toBottomOf="@id/textView25"/>
+        app:layout_constraintTop_toBottomOf="@id/city" />
 
     <Button
         android:id="@+id/uploadData"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upload data"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"/>
 
     <Button
         android:id="@+id/logout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="66dp"
+        android:layout_marginBottom="16dp"
         android:text="Log out"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
