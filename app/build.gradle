@@ -47,6 +47,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-database'
     implementation 'com.google.android.material:material:1.9.0'
     implementation 'com.squareup.picasso:picasso:2.71828'
+    implementation 'com.github.bumptech.glide:glide:4.14.2' // Use the latest version
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     implementation 'com.google.firebase:firebase-appcheck'
     implementation 'com.google.firebase:firebase-appcheck-playintegrity:17.0.1'
 

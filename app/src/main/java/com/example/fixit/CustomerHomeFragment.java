@@ -1,6 +1,9 @@
 package com.example.fixit;
 
+import static android.content.Context.MODE_PRIVATE;
+
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.LayoutInflater;
@@ -9,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,7 +21,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import com.example.fixit.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
+
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -30,6 +41,7 @@ public class CustomerHomeFragment extends Fragment {
     ArrayList<ServiceProviderInfo> serviceProviderInfoArrayList = new ArrayList<>();
     RecyclerView categoryRecycler;
     TextView categoriesViewall;
+    FirebaseFirestore db;
 
     public CustomerHomeFragment() {
         // Required empty public constructor
@@ -51,32 +63,54 @@ public class CustomerHomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+
+        String userIdFromIntent = getActivity().getIntent().getStringExtra("userId");
+        final String userId;
+        if (userIdFromIntent == null) {
+            SharedPreferences prefs = getActivity().getSharedPreferences("FixItApp", MODE_PRIVATE);
+            userId = prefs.getString("userId", null); // Retrieve saved userId
+        } else {
+            userId = userIdFromIntent;
+        }
+
         categoryRecycler = view.findViewById(R.id.categoriesRecycler);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-
         categoryRecycler.setLayoutManager(layoutManager);
         categoryarray.add(new CategoryModel("Car Service", R.drawable.services_medicinal));
         categoryarray.add(new CategoryModel("Gardening Service", R.drawable.services_medicinal));
         categoryarray.add(new CategoryModel("Maid Service", R.drawable.services_medicinal));
         categoryarray.add(new CategoryModel("Plumbing Service", R.drawable.services_medicinal));
         categoryarray.add(new CategoryModel("Electrician Service", R.drawable.services_medicinal));
-
         CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoryarray,getContext());
         categoryRecycler.setAdapter(categoriesAdapter);
 
 
         RecyclerView serviceproviderinfo = view.findViewById(R.id.serviceproviderlist);
         serviceproviderinfo.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        serviceProviderInfoArrayList.add(new ServiceProviderInfo("Ayush Soni", "Electrician", "6353805504", "Nadiad", "4.7", R.drawable.profile_icon));
-        serviceProviderInfoArrayList.add(new ServiceProviderInfo("Ayush Soni", "Electrician", "6353805504", "Nadiad", "4.7", R.drawable.profile_icon));
-        serviceProviderInfoArrayList.add(new ServiceProviderInfo("Ayush Soni", "Electrician", "6353805504", "Nadiad", "4.7", R.drawable.profile_icon));
-        serviceProviderInfoArrayList.add(new ServiceProviderInfo("Ayush Soni", "Electrician", "6353805504", "Nadiad", "4.7", R.drawable.profile_icon));
-
-
         ServiceProviderInfoAdapter adapter = new ServiceProviderInfoAdapter(getContext(),serviceProviderInfoArrayList);
         serviceproviderinfo.setAdapter(adapter);
 
+        db = FirebaseFirestore.getInstance();
+        db.collection("Service providers")
+                .get()
+                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                    @Override
+                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                        for(DocumentSnapshot d : list)
+                        {
+                            ServiceProviderInfo obj = d.toObject(ServiceProviderInfo.class);
+                            serviceProviderInfoArrayList.add(obj);
+                        }
+                        adapter.notifyDataSetChanged();
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Toast.makeText(getContext(), "Failed to get Service provider list", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         categoriesViewall = view.findViewById(R.id.categoriesViewall);
         categoriesViewall.setOnClickListener(new View.OnClickListener() {

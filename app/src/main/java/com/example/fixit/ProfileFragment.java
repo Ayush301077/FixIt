@@ -4,7 +4,11 @@ import static android.content.Context.MODE_PRIVATE;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,12 +23,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.squareup.picasso.Picasso;
+import com.google.android.material.imageview.ShapeableImageView;
+
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
 
 public class ProfileFragment extends Fragment {
 
@@ -74,7 +81,7 @@ public class ProfileFragment extends Fragment {
         profile_image = view.findViewById(R.id.profile_image);
 
         // Reference to the profile document
-        DocumentReference docRef = db.collection("Users").document(userId).collection("profile").document("profileData");
+        DocumentReference docRef = db.collection("Service providers").document(userId);
 
         // Retrieve profile data including image
         docRef.get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
@@ -93,12 +100,8 @@ public class ProfileFragment extends Fragment {
 
                     // Check if the image URL exists and is not empty
                     if (profileImageUrl != null && !profileImageUrl.isEmpty()) {
-                        // Load the profile image using Picasso
-                        Picasso.get()
-                                .load(profileImageUrl)
-                                .placeholder(R.drawable.profile_icon) // Placeholder image if none is set
-                                .error(R.drawable.profile_icon)  // Error placeholder in case of any issue
-                                .into(profile_image);
+                        // Fetch and set the image using Bitmap
+                        new DownloadImageTask(profile_image).execute(profileImageUrl);
                     } else {
                         Toast.makeText(getContext(), "No profile image URL found", Toast.LENGTH_SHORT).show();
                     }
@@ -141,5 +144,43 @@ public class ProfileFragment extends Fragment {
                 // Code for uploading additional data if needed
             }
         });
+
+    }
+
+    // AsyncTask for downloading image
+    private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
+        ShapeableImageView bmImage;
+
+        public DownloadImageTask(ShapeableImageView bmImage) {
+            this.bmImage = bmImage;
+        }
+
+        protected Bitmap doInBackground(String... urls) {
+            String urldisplay = urls[0];
+            Bitmap bitmap = null;
+            try {
+                // Open a URL connection
+                URL url = new URL(urldisplay);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setDoInput(true);
+                connection.connect();
+
+                // Fetch the input stream and decode it into a bitmap
+                InputStream in = connection.getInputStream();
+                bitmap = BitmapFactory.decodeStream(in);
+            } catch (Exception e) {
+                Log.e("Error", e.getMessage());
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        protected void onPostExecute(Bitmap result) {
+            if (result != null) {
+                bmImage.setImageBitmap(result);
+            } else {
+                Toast.makeText(getContext(), "Failed to load image", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

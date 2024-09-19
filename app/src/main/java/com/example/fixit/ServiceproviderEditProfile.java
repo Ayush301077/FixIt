@@ -164,10 +164,7 @@ public class ServiceproviderEditProfile extends AppCompatActivity {
         }
 
         // Reference to the specific user's profile document in Firestore
-        DocumentReference docRef = db.collection("Users").document(userId).collection("profile").document("profileData");
-
-        // Update the profile data in Firestore
-        docRef.set(serviceProvider)
+        Task<Void> docRef = db.collection("Service providers").document(userId).set(serviceProvider)
                 .addOnCompleteListener(new OnCompleteListener<Void>() {
                     @Override
                     public void onComplete(@NonNull Task<Void> task) {

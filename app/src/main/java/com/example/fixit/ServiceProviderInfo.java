@@ -1,16 +1,19 @@
 package com.example.fixit;
 
 public class ServiceProviderInfo {
-    String name, service, contact, location, ratings;
-    int profilephoto;
+    String name, services, contact, city, ratings;
+    String profile_image;
 
-    public ServiceProviderInfo(String name, String service, String contact, String location, String ratings, int profilephoto) {
+    public ServiceProviderInfo() {
+    }
+
+    public ServiceProviderInfo(String name, String service, String contact, String city, String ratings, String profile_image) {
         this.name = name;
-        this.service = service;
+        this.services = service;
         this.contact = contact;
-        this.location = location;
+        this.city = city;
         this.ratings = ratings;
-        this.profilephoto = profilephoto;
+        this.profile_image = profile_image;
     }
 
     public String getName() {
@@ -21,12 +24,12 @@ public class ServiceProviderInfo {
         this.name = name;
     }
 
-    public String getService() {
-        return service;
+    public String getServices() {
+        return services;
     }
 
-    public void setService(String service) {
-        this.service = service;
+    public void setServices(String service) {
+        this.services = service;
     }
 
     public String getContact() {
@@ -37,12 +40,12 @@ public class ServiceProviderInfo {
         this.contact = contact;
     }
 
-    public String getLocation() {
-        return location;
+    public String getCity() {
+        return city;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     public String getRatings() {
@@ -53,11 +56,11 @@ public class ServiceProviderInfo {
         this.ratings = ratings;
     }
 
-    public int getProfilephoto() {
-        return profilephoto;
+    public String getProfile_image() {
+        return profile_image;
     }
 
-    public void setProfilephoto(int profilephoto) {
-        this.profilephoto = profilephoto;
+    public void setProfile_image(String profile_image) {
+        this.profile_image = profile_image;
     }
 }

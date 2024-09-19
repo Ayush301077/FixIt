@@ -1,6 +1,7 @@
 package com.example.fixit;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -25,6 +26,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 public class CustomerDashboardActivity extends AppCompatActivity {
+    private static final String PREF_NAME = "first_time_pref";
+    private static final String IS_FIRST_TIME = "is_first_time";
     private FirebaseAuth auth;
     private FirebaseUser currentUser;
     BottomNavigationView bnView;
@@ -34,14 +37,6 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_customer_dashboard);
 
-        auth = FirebaseAuth.getInstance();
-        currentUser = auth.getCurrentUser();
-        if (currentUser == null) {
-            startActivity(new Intent(CustomerDashboardActivity.this, RoleSelectorActivity.class));
-            finish();
-            return;
-        }
-
         ActionBar actionBar = getSupportActionBar();
         ColorDrawable colorDrawable
                 = new ColorDrawable(Color.parseColor("#F44336"));
@@ -49,6 +44,15 @@ public class CustomerDashboardActivity extends AppCompatActivity {
         actionBar.setTitle("Home");
         bnView = findViewById(R.id.bnView);
         frameLayout = findViewById(R.id.frameLayout);
+
+        SharedPreferences preferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        boolean isFirstTime = preferences.getBoolean(IS_FIRST_TIME, true);
+
+        if (isFirstTime) {
+            SharedPreferences.Editor editor = preferences.edit();
+            editor.putBoolean(IS_FIRST_TIME, false);
+            editor.apply();
+        }
 
         bnView.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
