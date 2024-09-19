@@ -120,6 +120,7 @@
             android:layout_marginLeft="20dp"/>
 
         <TextView
+            android:id="@+id/spviewall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="View all"

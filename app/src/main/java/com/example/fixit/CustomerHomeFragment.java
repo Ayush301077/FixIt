@@ -40,7 +40,7 @@ public class CustomerHomeFragment extends Fragment {
     ArrayList<CategoryModel> categoryarray = new ArrayList<>();
     ArrayList<ServiceProviderInfo> serviceProviderInfoArrayList = new ArrayList<>();
     RecyclerView categoryRecycler;
-    TextView categoriesViewall;
+    TextView categoriesViewall, spviewall;
     FirebaseFirestore db;
 
     public CustomerHomeFragment() {
@@ -50,15 +50,13 @@ public class CustomerHomeFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         View root = inflater.inflate(R.layout.fragment_customer_home, container, false);
-
         viewPager = root.findViewById(R.id.viewPager);
         customIndicatorLayout = root.findViewById(R.id.custom_indicator);
-
-
         return root;
     }
+
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -89,7 +87,6 @@ public class CustomerHomeFragment extends Fragment {
         serviceproviderinfo.setLayoutManager(new LinearLayoutManager(getContext()));
         ServiceProviderInfoAdapter adapter = new ServiceProviderInfoAdapter(getContext(),serviceProviderInfoArrayList);
         serviceproviderinfo.setAdapter(adapter);
-
         db = FirebaseFirestore.getInstance();
         db.collection("Service providers")
                 .get()
@@ -112,6 +109,14 @@ public class CustomerHomeFragment extends Fragment {
                     }
                 });
 
+        spviewall = view.findViewById(R.id.spviewall);
+        spviewall.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getActivity(), ServiceProvidersListActivity.class));
+            }
+        });
+
         categoriesViewall = view.findViewById(R.id.categoriesViewall);
         categoriesViewall.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,12 +129,10 @@ public class CustomerHomeFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
-        // Setup the slider here instead of in onViewCreated
         setupSlider();
     }
 
     private void setupSlider() {
-        // Ensure that the fragment is added and context is not null
         if (!isAdded() || getContext() == null) {
             return;
         }
@@ -180,7 +183,7 @@ public class CustomerHomeFragment extends Fragment {
 
     private void createCustomIndicator(int count) {
         ImageView[] dots = new ImageView[count];
-        customIndicatorLayout.removeAllViews(); // Clear any previous dots
+        customIndicatorLayout.removeAllViews();
 
         for (int i = 0; i < count; i++) {
             dots[i] = new ImageView(getContext());

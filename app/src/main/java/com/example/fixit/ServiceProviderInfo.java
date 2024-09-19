@@ -2,18 +2,29 @@ package com.example.fixit;
 
 public class ServiceProviderInfo {
     String name, services, contact, city, ratings;
-    String profile_image;
+    String profileImage;
+    String email;
+
 
     public ServiceProviderInfo() {
     }
 
-    public ServiceProviderInfo(String name, String service, String contact, String city, String ratings, String profile_image) {
+    public ServiceProviderInfo(String name, String service, String contact, String city, String ratings, String profileImage, String email) {
         this.name = name;
         this.services = service;
         this.contact = contact;
         this.city = city;
         this.ratings = ratings;
-        this.profile_image = profile_image;
+        this.profileImage = profileImage;
+        this.email = email;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getName() {
@@ -56,11 +67,11 @@ public class ServiceProviderInfo {
         this.ratings = ratings;
     }
 
-    public String getProfile_image() {
-        return profile_image;
+    public String getProfileImage() {
+        return profileImage;
     }
 
-    public void setProfile_image(String profile_image) {
-        this.profile_image = profile_image;
+    public void setProfileImage(String profileImage) {
+        this.profileImage = profileImage;
     }
 }

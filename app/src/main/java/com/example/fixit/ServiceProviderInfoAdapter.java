@@ -1,6 +1,8 @@
 package com.example.fixit;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +27,11 @@ public class ServiceProviderInfoAdapter extends RecyclerView.Adapter<ServiceProv
         this.serviceProviderInfoArrayList = serviceProviderInfoArrayList;
     }
 
+    public void setFilteredList(ArrayList<ServiceProviderInfo> filteredList){
+        this.serviceProviderInfoArrayList = filteredList;
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public ServiceProviderInfoAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -35,19 +42,32 @@ public class ServiceProviderInfoAdapter extends RecyclerView.Adapter<ServiceProv
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ServiceProviderInfoAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ServiceProviderInfoAdapter.ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         ServiceProviderInfo info = serviceProviderInfoArrayList.get(position);
 
         holder.name.setText(serviceProviderInfoArrayList.get(position).name);
         holder.service.setText(serviceProviderInfoArrayList.get(position).services);
         holder.contact.setText(serviceProviderInfoArrayList.get(position).contact);
         holder.location.setText(serviceProviderInfoArrayList.get(position).city);
-        holder.ratings.setText(serviceProviderInfoArrayList.get(position).ratings);
         Glide.with(context)
-                .load(info.getProfile_image()) // URL of the image
+                .load(info.getProfileImage()) // URL of the image
                 .placeholder(R.drawable.profile_icon) // Optional placeholder image
-                .into(holder.profilephoto);
-
+                .into(holder.profileImage);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(holder.itemView.getContext(), ServiceProviderDetailsActtivity.class);
+                intent.putExtra("name", serviceProviderInfoArrayList.get(position).name);
+                intent.putExtra("service", serviceProviderInfoArrayList.get(position).services);
+                intent.putExtra("contact", serviceProviderInfoArrayList.get(position).contact);
+                intent.putExtra("location", serviceProviderInfoArrayList.get(position).city);
+                intent.putExtra("name", serviceProviderInfoArrayList.get(position).name);
+                intent.putExtra("profileImage", serviceProviderInfoArrayList.get(position).getProfileImage()); // pass the image URL
+                intent.putExtra("email", serviceProviderInfoArrayList.get(position).email);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                holder.itemView.getContext().startActivity(intent);
+            }
+        });
 
     }
 
@@ -59,7 +79,9 @@ public class ServiceProviderInfoAdapter extends RecyclerView.Adapter<ServiceProv
     static class ViewHolder extends RecyclerView.ViewHolder{
 
         TextView name, service,contact, location,ratings;
-        ImageView profilephoto;
+        ImageView profileImage;
+        TextView email;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -68,7 +90,8 @@ public class ServiceProviderInfoAdapter extends RecyclerView.Adapter<ServiceProv
             contact = itemView.findViewById(R.id.contact);
             location = itemView.findViewById(R.id.location);
             ratings = itemView.findViewById(R.id.ratings);
-            profilephoto = itemView.findViewById(R.id.profilephoto);
+            profileImage = itemView.findViewById(R.id.profileImage);
+            email = itemView.findViewById(R.id.email);
 
         }
     }
