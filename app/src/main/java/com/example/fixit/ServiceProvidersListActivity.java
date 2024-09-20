@@ -1,6 +1,8 @@
 package com.example.fixit;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -79,6 +81,15 @@ public class ServiceProvidersListActivity extends AppCompatActivity {
                     {
                         filteredList.add(item);
                     }
+                    else if(item.getServices().toLowerCase().contains(s.toLowerCase()))
+                    {
+                        filteredList.add(item);
+                    }
+                    else if(item.getCity().toLowerCase().contains(s.toLowerCase()))
+                    {
+                        filteredList.add(item);
+                    }
+
                 }
 
                 if(filteredList.isEmpty())
@@ -99,7 +110,142 @@ public class ServiceProvidersListActivity extends AppCompatActivity {
         ArrayAdapter<String> spinner1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, filter);
         spinner.setAdapter(spinner1);
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> adapterView, View view, int position, long l) {
+                if (position == 0)
+                {
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String s) {
+                            return false;
+                        }
 
+                        @Override
+                        public boolean onQueryTextChange(String s) {
+                            ArrayList<ServiceProviderInfo> filteredList0 = new ArrayList<>();
+                            for(ServiceProviderInfo item : serviceProviderInfoArrayList)
+                            {
+                                if(item.getName().toLowerCase().contains(s.toLowerCase()))
+                                {
+                                    filteredList0.add(item);
+                                }
+                            }
+
+                            if(filteredList0.isEmpty())
+                                Toast.makeText(getApplicationContext(), "No such data found", Toast.LENGTH_SHORT).show();
+                            else
+                                adapter.setFilteredList(filteredList0);
+
+                            return true;
+                        }
+                    });
+
+                }
+                else if(position == 1)
+                {
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String s) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onQueryTextChange(String s) {
+                            ArrayList<ServiceProviderInfo> filteredList1 = new ArrayList<>();
+                            for(ServiceProviderInfo item : serviceProviderInfoArrayList)
+                            {
+                                if(item.getServices().toLowerCase().contains(s.toLowerCase()))
+                                {
+                                    filteredList1.add(item);
+                                }
+                            }
+
+                            if(filteredList1.isEmpty())
+                                Toast.makeText(getApplicationContext(), "No such data found", Toast.LENGTH_SHORT).show();
+                            else
+                                adapter.setFilteredList(filteredList1);
+
+                            return true;
+                        }
+                    });
+
+                }
+
+                else if(position == 2)
+                {
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String s) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onQueryTextChange(String s) {
+                            ArrayList<ServiceProviderInfo> filteredList2 = new ArrayList<>();
+                            for(ServiceProviderInfo item : serviceProviderInfoArrayList)
+                            {
+                                if(item.getCity().toLowerCase().contains(s.toLowerCase()))
+                                {
+                                    filteredList2.add(item);
+                                }
+                            }
+
+                            if(filteredList2.isEmpty())
+                                Toast.makeText(getApplicationContext(), "No such data found", Toast.LENGTH_SHORT).show();
+                            else
+                                adapter.setFilteredList(filteredList2);
+
+                            return true;
+                        }
+                    });
+
+                }
+                else if (position == 3)
+                {
+                    searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                        @Override
+                        public boolean onQueryTextSubmit(String s) {
+                            return false;
+                        }
+
+                        @Override
+                        public boolean onQueryTextChange(String s) {
+                            ArrayList<ServiceProviderInfo> filteredList = new ArrayList<>();
+                            for(ServiceProviderInfo item : serviceProviderInfoArrayList)
+                            {
+                                if(item.getName().toLowerCase().contains(s.toLowerCase()))
+                                {
+                                    filteredList.add(item);
+                                }
+                                else if(item.getServices().toLowerCase().contains(s.toLowerCase()))
+                                {
+                                    filteredList.add(item);
+                                }
+                                else if(item.getCity().toLowerCase().contains(s.toLowerCase()))
+                                {
+                                    filteredList.add(item);
+                                }
+
+                            }
+
+                            if(filteredList.isEmpty())
+                                Toast.makeText(getApplicationContext(), "No such data found", Toast.LENGTH_SHORT).show();
+                            else
+                                adapter.setFilteredList(filteredList);
+
+                            return true;
+                        }
+                    });
+                }
+
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> adapterView) {
+
+            }
+        });
 
 
     }
