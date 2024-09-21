@@ -2,63 +2,114 @@ package com.example.fixit;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link CustomerFavoritesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class CustomerFavoritesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    RecyclerView favoriteRecycler;
+    private ServiceProviderInfoAdapter spiadapter;
+    private FavoritesStorage favoritesStorage;
 
     public CustomerFavoritesFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment CustomerFavoritesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static CustomerFavoritesFragment newInstance(String param1, String param2) {
-        CustomerFavoritesFragment fragment = new CustomerFavoritesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_customer_favorites, container, false);
     }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        // Initialize storage helper
+        favoritesStorage = new FavoritesStorage(getContext());
+
+        // Get the list of favorites
+        List<ServiceProviderInfo> favorites = favoritesStorage.getFavorites();
+
+        favoriteRecycler = view.findViewById(R.id.favoriteRecycler);
+        favoriteRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        spiadapter = new ServiceProviderInfoAdapter(getContext(), new ArrayList<>(favorites));
+        favoriteRecycler.setAdapter(spiadapter);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Refresh the list of favorites when coming back from ServiceProviderDetailsActivity
+        List<ServiceProviderInfo> updatedFavorites = favoritesStorage.getFavorites();
+        Log.d("CustomerFavoritesFragment", "Updated favorites: " + updatedFavorites.toString());
+
+        spiadapter.setFilteredList(new ArrayList<>(updatedFavorites));// Update the adapter
+    }
 }
+
+
+
+
+
+//package com.example.fixit;
+//
+//import android.os.Bundle;
+//
+//import androidx.annotation.NonNull;
+//import androidx.annotation.Nullable;
+//import androidx.fragment.app.Fragment;
+//import androidx.recyclerview.widget.LinearLayoutManager;
+//import androidx.recyclerview.widget.RecyclerView;
+//
+//import android.view.LayoutInflater;
+//import android.view.View;
+//import android.view.ViewGroup;
+//
+//import java.util.ArrayList;
+//
+//public class CustomerFavoritesFragment extends Fragment {
+//
+//    RecyclerView favoriteRecycler;
+//    private ServiceProviderInfoAdapter spiadapter;
+//    private FavoritesStorage favoritesStorage;  // Storage helper
+//
+//    @Override
+//    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+//                             Bundle savedInstanceState) {
+//        return inflater.inflate(R.layout.fragment_customer_favorites, container, false);
+//    }
+//
+//    @Override
+//    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+//        super.onViewCreated(view, savedInstanceState);
+//
+//        favoriteRecycler = view.findViewById(R.id.favoriteRecycler);
+//        favoriteRecycler.setLayoutManager(new LinearLayoutManager(getContext()));
+//
+//        favoritesStorage = new FavoritesStorage(getContext());  // Initialize the storage
+//
+//        // Retrieve the list of favorites from storage
+//        ArrayList<ServiceProviderInfo> favorites = favoritesStorage.getFavorites();
+//        if (favorites == null) {
+//            favorites = new ArrayList<>();
+//        }
+//
+//        // Initialize the adapter with the favorites list
+//        spiadapter = new ServiceProviderInfoAdapter(getContext(), favorites);
+//        favoriteRecycler.setAdapter(spiadapter);
+//    }
+//}
+//

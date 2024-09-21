@@ -1,7 +1,9 @@
 package com.example.fixit;
 
-public class ServiceProviderInfo {
-    String name, services, contact, city, ratings;
+import java.io.Serializable;
+
+public class ServiceProviderInfo implements Serializable {
+    String name, services, contact, city;
     String profileImage;
     String email;
 
@@ -9,12 +11,28 @@ public class ServiceProviderInfo {
     public ServiceProviderInfo() {
     }
 
-    public ServiceProviderInfo(String name, String service, String contact, String city, String ratings, String profileImage, String email) {
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+
+        ServiceProviderInfo that = (ServiceProviderInfo) obj;
+
+        // Compare fields that uniquely identify the ServiceProviderInfo (e.g., email or contact)
+        return email != null ? email.equals(that.email) : that.email == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return email != null ? email.hashCode() : 0;
+    }
+
+
+    public ServiceProviderInfo(String name, String service, String contact, String city, String profileImage, String email) {
         this.name = name;
         this.services = service;
         this.contact = contact;
         this.city = city;
-        this.ratings = ratings;
         this.profileImage = profileImage;
         this.email = email;
     }
@@ -57,14 +75,6 @@ public class ServiceProviderInfo {
 
     public void setCity(String city) {
         this.city = city;
-    }
-
-    public String getRatings() {
-        return ratings;
-    }
-
-    public void setRatings(String ratings) {
-        this.ratings = ratings;
     }
 
     public String getProfileImage() {

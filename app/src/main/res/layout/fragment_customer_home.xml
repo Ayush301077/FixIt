@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".CustomerHomeFragment">
+    tools:context=".CustomerHomeFragment"
+    android:background="#FDD3D3">
 
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewPager"

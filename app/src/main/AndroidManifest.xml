@@ -17,7 +17,7 @@
         android:theme="@style/Base.Theme.FixIt"
         tools:targetApi="31">
         <activity
-            android:name=".ServiceProviderDetailsActtivity"
+            android:name=".ServiceProviderDetailsActivity"
             android:exported="false" />
         <activity
             android:name=".ServiceProvidersListActivity"
