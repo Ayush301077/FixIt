@@ -1,8 +1,11 @@
 package com.example.fixit;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,8 +98,19 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
 
         });
 
-        // Other button logic (bookservice, message, withdrawservice) remains the same
-    }
+        bookservice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog book = new DatePickerDialog(ServiceProviderDetailsActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker, int year, int month, int day) {
+                        Log.d("Ayush", "Soni");
+                    }
+                }, 2024,8,15);
+                book.show();
+            }
+        });
+}
 }
 
 

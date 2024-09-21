@@ -22,8 +22,6 @@ import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
 
-    private SwitchCompat statusSwitch;
-    private TextView statusText;
     TextView newRequestsDropdown, acceptedRequestsDropdown;
     ArrayList<RequestModel> requestArray = new ArrayList<>();
     ArrayList<RequestModel> acceptedArray = new ArrayList<>();
@@ -43,25 +41,9 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        statusSwitch = view.findViewById(R.id.statusSwitch);
-        statusText = view.findViewById(R.id.statusText);
         newRequestsDropdown = view.findViewById(R.id.newRequestsDropdown);
         acceptedRequestsDropdown = view.findViewById(R.id.acceptedRequestsDropdown);
 
-        // Set an OnCheckedChangeListener to toggle between states
-        statusSwitch.setOnCheckedChangeListener((buttonView, isChecked) -> {
-            if (isChecked) {
-                // Switch is ON, display "Available" with green colors
-                statusText.setText("Available");
-                statusSwitch.setThumbTintList(ColorStateList.valueOf(Color.GREEN));
-                statusSwitch.setTrackTintList(ColorStateList.valueOf(Color.parseColor("#A5D6A7"))); // Light green
-            } else {
-                // Switch is OFF, display "Unavailable" with red colors
-                statusText.setText("Unavailable");
-                statusSwitch.setThumbTintList(ColorStateList.valueOf(Color.RED));
-                statusSwitch.setTrackTintList(ColorStateList.valueOf(Color.parseColor("#EF9A9A"))); // Light red
-            }
-        });
 
 
         RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
@@ -70,6 +52,7 @@ public class HomeFragment extends Fragment {
 
 
         requestArray.add(new RequestModel("Soni Ayush V", "6353805504", "College road", "Nadiad", "Plumbing"));
+
         requestArray.add(new RequestModel("Soni Vimal N", "9574390091", "Kansa", "Visnagar", "Plumbing"));
         requestArray.add(new RequestModel("Soni Ayush V", "6353805504", "College road", "Nadiad", "Plumbing"));
 
@@ -112,13 +95,13 @@ public class HomeFragment extends Fragment {
             public void onClick(View view) {
 
                 if(isVisible2){
-                    acceptedRequestsDropdown.setText("Accepted requests                                                            ▼");
+                    acceptedRequestsDropdown.setText("Accepted requests                                                             ▼");
                     acceptedRequestsDropdown.setBackgroundResource(R.drawable.roundcorners);
                     recyclerView2.setVisibility(view.GONE);
                 }
                 else
                 {
-                    acceptedRequestsDropdown.setText("Accepted requests                                                            ▲");
+                    acceptedRequestsDropdown.setText("Accepted requests                                                             ▲");
                     acceptedRequestsDropdown.setBackgroundResource(R.drawable.roundcorners_onclick);
                     recyclerView2.setVisibility(view.VISIBLE);}
                 isVisible2 = !isVisible2;

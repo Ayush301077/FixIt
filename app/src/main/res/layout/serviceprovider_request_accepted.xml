@@ -2,13 +2,13 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="140dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/single_request"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="120dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginTop="10dp"
@@ -22,38 +22,40 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent">
 
+
+            <TextView
+                android:id="@+id/tv1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="6dp"
+                android:layout_marginTop="6dp"
+                android:text="From :"
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:textSize="13sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/from"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="6dp"
-                android:layout_marginTop="6dp"
-                android:text="From : "
-                android:textSize="13sp"
-                android:textColor="@color/orange"
-                android:textStyle="bold"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/textView1"
-                android:textSize="13sp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="2dp"
+                android:layout_marginStart="1dp"
                 android:layout_marginTop="6dp"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/from"
+                android:textSize="13sp"
+
+                app:layout_constraintStart_toEndOf="@+id/tv1"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <TextView
-                android:id="@+id/contact"
+                android:id="@+id/tv2"
                 android:layout_width="wrap_content"
                 android:textSize="13sp"
+
                 android:layout_height="wrap_content"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="35dp"
@@ -64,24 +66,26 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView2"
+                android:id="@+id/contact"
                 android:layout_width="wrap_content"
-                android:textSize="13sp"
                 android:layout_height="wrap_content"
+                android:textSize="13sp"
+
                 android:layout_marginStart="3dp"
                 android:layout_marginTop="35dp"
                 android:text="TextView"
                 android:inputType="number"
-                app:layout_constraintStart_toEndOf="@+id/contact"
+                app:layout_constraintStart_toEndOf="@+id/tv2"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/area"
+                android:id="@+id/tv3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
                 android:layout_marginStart="6dp"
                 android:layout_marginTop="64dp"
+                android:textSize="13sp"
+
                 android:textColor="@color/orange"
                 android:textStyle="bold"
                 android:text="Area : "
@@ -89,47 +93,51 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/area"
                 android:layout_width="wrap_content"
-                android:textSize="13sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
+                android:layout_marginStart="5dp"
+                android:textSize="13sp"
+
                 android:layout_marginTop="64dp"
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/area"
+                app:layout_constraintStart_toEndOf="@+id/tv3"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/city"
+                android:id="@+id/tv4"
                 android:layout_width="wrap_content"
-                android:textSize="13sp"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="145dp"
+                android:layout_marginStart="6dp"
                 android:textColor="@color/orange"
                 android:textStyle="bold"
-                android:layout_marginTop="6dp"
+                android:textSize="13sp"
+
+                android:layout_marginTop="93dp"
                 android:text="City : "
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView4"
-                android:textSize="13sp"
+                android:id="@+id/city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="15dp"
-                android:layout_marginTop="6dp"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="93dp"
+                android:textSize="13sp"
+
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/city"
+                app:layout_constraintStart_toEndOf="@+id/tv4"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/service"
-                android:textSize="13sp"
+                android:id="@+id/tv5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="145dp"
                 android:layout_marginTop="35dp"
+                android:textSize="13sp"
+
                 android:textColor="@color/orange"
                 android:textStyle="bold"
                 android:text="Service : "
@@ -137,14 +145,15 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView5"
-                android:textSize="13sp"
+                android:id="@+id/service"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
                 android:layout_marginTop="35dp"
+                android:textSize="13sp"
+
                 android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/service"
+                app:layout_constraintStart_toEndOf="@+id/tv5"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -152,11 +161,37 @@
                 android:id="@+id/imageView3"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:layout_marginRight="20dp"
-                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="72dp"
+                android:layout_marginRight="16dp"
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@drawable/message" />
+
+            <TextView
+                android:id="@+id/tv6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="145dp"
+                android:layout_marginTop="6dp"
+                android:textSize="13sp"
+
+                android:textColor="@color/orange"
+                android:textStyle="bold"
+                android:text="Date of Booking : "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+            <TextView
+                android:id="@+id/dateofbooking"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="6dp"
+                android:textSize="13sp"
+
+                android:text="TextView"
+                app:layout_constraintStart_toEndOf="@+id/tv6"
+                app:layout_constraintTop_toTopOf="parent" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

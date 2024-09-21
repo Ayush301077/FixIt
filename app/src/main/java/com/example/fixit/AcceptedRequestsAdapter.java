@@ -53,11 +53,11 @@ public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedReques
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            from = itemView.findViewById(R.id.textView1);
-            contact = itemView.findViewById(R.id.textView2);
-            area = itemView.findViewById(R.id.textView3);
-            city = itemView.findViewById(R.id.textView4);
-            service = itemView.findViewById(R.id.textView5);
+            from = itemView.findViewById(R.id.from);
+            contact = itemView.findViewById(R.id.contact);
+            area = itemView.findViewById(R.id.area);
+            city = itemView.findViewById(R.id.city);
+            service = itemView.findViewById(R.id.service);
 
         }
     }

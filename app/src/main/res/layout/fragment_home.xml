@@ -32,6 +32,17 @@
                 android:layout_height="match_parent"
                 android:background="#DEDEDE">
 
+
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="85dp"
+                    android:layout_height="64dp"
+                    android:layout_marginLeft="8dp"
+                    android:src="@drawable/applogo"
+                    android:layout_marginTop="10dp"
+                    app:layout_constraintLeft_toLeftOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <TextView
                     android:id="@+id/welcomemsg"
                     android:layout_width="wrap_content"
@@ -58,6 +69,7 @@
                     android:textSize="15sp"
                     app:layout_constraintLeft_toLeftOf="parent"
                     app:layout_constraintTop_toBottomOf="@id/welcomemsg" />
+
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -107,36 +119,6 @@
             app:layout_constraintTop_toBottomOf="@+id/acceptedRequestsDropdown" />
 
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="16dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintRight_toRightOf="parent">
-
-            <!-- TextView for displaying status -->
-            <TextView
-                android:id="@+id/statusText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:text="Available"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                android:textSize="18sp" />
-
-            <!-- SwitchCompat -->
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/statusSwitch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:checked="true"
-                android:thumbTint="@color/orange"
-                android:trackTint="@color/light_green" />
-
-        </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
