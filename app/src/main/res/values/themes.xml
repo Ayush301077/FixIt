@@ -16,8 +16,8 @@
         <item name="cornerSize">50%</item>
     </style>
 
-    <style name="booking" parent="Theme.Material3.Dark.Dialog">
-        <item name="colorAccent"> @color/orange</item>
+    <style name="booking" parent="Theme.MaterialComponents.DayNight.Dialog">
+        <item name="colorAccent">@color/orange</item>
     </style>
 
 
