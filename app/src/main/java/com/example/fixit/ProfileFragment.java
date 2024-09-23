@@ -69,7 +69,6 @@ public class ProfileFragment extends Fragment {
         auth = FirebaseAuth.getInstance();
         logout = view.findViewById(R.id.logout);
         editProfile = view.findViewById(R.id.editProfilebutton);
-        uploadData = view.findViewById(R.id.uploadData);
 
         name = view.findViewById(R.id.name);
         ratings = view.findViewById(R.id.ratings);

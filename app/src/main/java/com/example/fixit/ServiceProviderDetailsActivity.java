@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -104,36 +105,92 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         bookservice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog book = new DatePickerDialog(ServiceProviderDetailsActivity.this,R.style.booking, new DatePickerDialog.OnDateSetListener() {
+                // Show DatePickerDialog
+                DatePickerDialog book = new DatePickerDialog(ServiceProviderDetailsActivity.this, R.style.booking, new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker datePicker, int year, int month, int day) {
-                        String bookdate = day +"/"+month+"/"+year;
+                        // Store the selected date in bookdate string
+                        String bookdate = day + "/" + (month + 1) + "/" + year;  // month + 1 because month is zero-based in DatePicker
+
+                        // Get the services provided by the service provider (comma-separated string)
                         String servicesString = servicesTextView.getText().toString();
                         String[] servicesArray = servicesString.split(",");
+
+                        // Open the service type dialog
                         Dialog dialog = new Dialog(ServiceProviderDetailsActivity.this);
                         dialog.setContentView(R.layout.service_type_dialog);
                         dialog.show();
-                        TextView reqservice = dialog.findViewById(R.id.reqservice);
+
+                        // Get the UI components from the dialog
+                        EditText reqservice = dialog.findViewById(R.id.reqservice);
                         Button ok = dialog.findViewById(R.id.ok);
                         Button cancel = dialog.findViewById(R.id.cancel);
 
-                        String requiredservice = reqservice.getText().toString();
-                        for(String serv : servicesArray)
-                        {
-                            if(requiredservice == serv)
-                            {
-                                Dialog confirmdDialog = new Dialog(ServiceProviderDetailsActivity.this);
-                                confirmdDialog.setContentView(R.layout.confirm_booking_dialog);
-                                confirmdDialog.show();
+                        // Handle the Cancel button in the service dialog
+                        cancel.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                dialog.dismiss(); // Close the service type dialog and terminate booking process
                             }
-                        }
-                        dialog.dismiss();
+                        });
 
+                        // Handle the OK button in the service dialog
+                        ok.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                String requiredService = reqservice.getText().toString().trim(); // Get entered service and trim spaces
 
+                                boolean serviceProvided = false;
+                                for (String service : servicesArray) {
+                                    if (requiredService.equalsIgnoreCase(service.trim())) {
+                                        serviceProvided = true;
+                                        break;
+                                    }
+                                }
 
+                                if (serviceProvided) {
+                                    // Service exists, show the confirmation dialog
+                                    dialog.dismiss();  // Close the service type dialog
 
+                                    Dialog confirmDialog = new Dialog(ServiceProviderDetailsActivity.this);
+                                    confirmDialog.setContentView(R.layout.confirm_booking_dialog);
+                                    confirmDialog.show();
+
+                                    // Get the UI components from the confirmation dialog
+                                    TextView datebook = confirmDialog.findViewById(R.id.datebook);
+                                    TextView servicerequest = confirmDialog.findViewById(R.id.servicerequest);
+                                    Button confirm = confirmDialog.findViewById(R.id.confirm);
+                                    Button cancelConfirm = confirmDialog.findViewById(R.id.button3);
+
+                                    // Set the selected date and service in the confirmation dialog
+                                    datebook.setText(bookdate);
+                                    servicerequest.setText(requiredService);
+
+                                    // Handle the Cancel button in the confirmation dialog
+                                    cancelConfirm.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            confirmDialog.dismiss();  // Close the confirmation dialog and terminate booking process
+                                        }
+                                    });
+
+                                    // Handle the Confirm button (No action as per your request, but mention the listener)
+                                    confirm.setOnClickListener(new View.OnClickListener() {
+                                        @Override
+                                        public void onClick(View v) {
+                                            // Listener for final confirmation action (e.g., send booking data to server)
+                                            // You can implement this part later
+                                        }
+                                    });
+
+                                } else {
+                                    // Service not provided, show a toast message
+                                    Toast.makeText(ServiceProviderDetailsActivity.this, "Service not provided by the service provider", Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
                     }
-                }, 2024,8,15);
+                }, 2024, 8, 15);
                 book.show();
             }
         });
