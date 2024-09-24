@@ -17,6 +17,9 @@
         android:theme="@style/Base.Theme.FixIt"
         tools:targetApi="31">
         <activity
+            android:name=".CustomersEditProfileActivity"
+            android:exported="false" />
+        <activity
             android:name=".ServiceProviderDetailsActivity"
             android:exported="false" />
         <activity

@@ -13,13 +13,20 @@ import java.util.List;
 
 public class FavoritesStorage {
 
-    private static final String PREFERENCES_KEY = "favorites";
+    private static final String PREFERENCES_KEY_PREFIX = "favorites_";  // Add a prefix for user-specific favorites
     private SharedPreferences sharedPreferences;
     private Gson gson;
+    private String userId;  // Store the user ID for this instance
 
-    public FavoritesStorage(Context context) {
+    public FavoritesStorage(Context context, String userId) {
         sharedPreferences = context.getSharedPreferences("FixItPrefs", Context.MODE_PRIVATE);
         gson = new Gson();
+        this.userId = userId;  // Save the user ID
+    }
+
+    // Modify all methods to use user-specific keys
+    private String getPreferencesKey() {
+        return PREFERENCES_KEY_PREFIX + userId;  // Create a unique key for each user
     }
 
     public void addFavorite(ServiceProviderInfo serviceProvider) {
@@ -42,7 +49,6 @@ public class FavoritesStorage {
         saveFavorites(favorites);
     }
 
-
     public boolean isFavorite(ServiceProviderInfo serviceProvider) {
         List<ServiceProviderInfo> favorites = getFavorites();
         for (ServiceProviderInfo favorite : favorites) {
@@ -54,7 +60,7 @@ public class FavoritesStorage {
     }
 
     public List<ServiceProviderInfo> getFavorites() {
-        String json = sharedPreferences.getString(PREFERENCES_KEY, null);
+        String json = sharedPreferences.getString(getPreferencesKey(), null);  // Use user-specific key
         Type type = new TypeToken<ArrayList<ServiceProviderInfo>>() {}.getType();
         List<ServiceProviderInfo> favorites = gson.fromJson(json, type);
         if (favorites != null) {
@@ -68,7 +74,7 @@ public class FavoritesStorage {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         String json = gson.toJson(favorites);
         Log.d("FavoritesStorage", "Saving favorites: " + json);
-        editor.putString(PREFERENCES_KEY, json);
+        editor.putString(getPreferencesKey(), json);  // Use user-specific key
         editor.apply();
     }
 }

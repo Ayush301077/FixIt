@@ -135,15 +135,6 @@ public class ProfileFragment extends Fragment {
                 getActivity().finish();
             }
         });
-
-        // Upload Data Button
-        uploadData.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                // Code for uploading additional data if needed
-            }
-        });
-
     }
 
     // AsyncTask for downloading image

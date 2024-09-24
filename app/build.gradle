@@ -51,8 +51,7 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.14.2'
     implementation 'com.google.firebase:firebase-appcheck'
     implementation 'com.google.code.gson:gson:2.8.8'
-
-    implementation 'com.google.android.gms:play-services-auth:16.0.1'
+    implementation 'com.google.android.gms:play-services-auth:20.3.0'
     implementation 'com.google.firebase:firebase-appcheck-playintegrity:17.0.1'
 
 

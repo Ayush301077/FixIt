@@ -2,6 +2,7 @@ package com.example.fixit;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -35,8 +36,12 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         message = findViewById(R.id.message);
         withdrawservice = findViewById(R.id.withdrawservice);
 
-        // Initialize storage helper for managing favorites
-        favoritesStorage = new FavoritesStorage(this);
+        // Retrieve the userId from SharedPreferences (or Intent, depending on how you're managing user sessions)
+        SharedPreferences prefs = getSharedPreferences("FixItApp", MODE_PRIVATE);
+        String userId = prefs.getString("userId", null);
+
+        // Initialize storage helper for managing favorites (pass both the context and the userId)
+        favoritesStorage = new FavoritesStorage(this, userId);
 
         // Get references to the views
         ImageView profileImageView = findViewById(R.id.profileImage);
