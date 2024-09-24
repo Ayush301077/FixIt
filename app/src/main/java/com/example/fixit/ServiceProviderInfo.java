@@ -6,6 +6,7 @@ public class ServiceProviderInfo implements Serializable {
     String name, services, contact, city;
     String profileImage;
     String email;
+    String serviceProviderId;
 
 
     public ServiceProviderInfo() {
@@ -28,13 +29,23 @@ public class ServiceProviderInfo implements Serializable {
     }
 
 
-    public ServiceProviderInfo(String name, String service, String contact, String city, String profileImage, String email) {
+    public ServiceProviderInfo(String name, String service, String contact, String city, String profileImage, String email,String serviceProviderId) {
         this.name = name;
         this.services = service;
         this.contact = contact;
         this.city = city;
         this.profileImage = profileImage;
         this.email = email;
+        this.serviceProviderId = serviceProviderId;
+
+    }
+
+    public String getServiceProviderId() {
+        return serviceProviderId;
+    }
+
+    public void setServiceProviderId(String serviceProviderId) {
+        this.serviceProviderId = serviceProviderId;
     }
 
     public String getEmail() {

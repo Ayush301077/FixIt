@@ -33,7 +33,8 @@
             android:exported="false" />
         <activity
             android:name=".RoleSelectorActivity"
-            android:exported="false" /> <!-- Service Provider Dashboard -->
+            android:exported="false"
+            android:theme="@style/Base.Theme.FixIt.NoActionBar"/> <!-- Service Provider Dashboard -->
         <activity
             android:name=".ServiceProviderDashboard"
             android:exported="false" /> <!-- Registration Activity -->
@@ -48,7 +49,8 @@
             android:exported="false" /> <!-- Main Activity -->
         <activity
             android:name=".SplashScreen"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Base.Theme.FixIt.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

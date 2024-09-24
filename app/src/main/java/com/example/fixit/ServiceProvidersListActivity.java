@@ -1,5 +1,7 @@
 package com.example.fixit;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -10,6 +12,7 @@ import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -37,6 +40,12 @@ public class ServiceProvidersListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_service_providers_list);
+
+        ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#F44336"));
+        actionBar.setBackgroundDrawable(colorDrawable);
+        actionBar.setTitle("Service Providers");
+
 
         serviceproviderinfo = findViewById(R.id.servicesRecycler);
         serviceproviderinfo.setLayoutManager(new LinearLayoutManager(this));

@@ -14,51 +14,49 @@ import java.util.ArrayList;
 
 public class NewRequestsAdapter extends RecyclerView.Adapter<NewRequestsAdapter.ViewHolder> {
 
-    ArrayList<RequestModel> requestArray;
-    Context context;
-    public NewRequestsAdapter(Context context, ArrayList<RequestModel> requestArray){
-        this.context = context;
-        this.requestArray = requestArray;
+    private Context context;
+    private ArrayList<RequestModel> requestList;
 
+    public NewRequestsAdapter(Context context, ArrayList<RequestModel> requestList) {
+        this.context = context;
+        this.requestList = requestList;
     }
 
     @NonNull
     @Override
-    public NewRequestsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.serviceprovider_request_new, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull NewRequestsAdapter.ViewHolder holder, int position) {
-        Log.d("RecyclerView", "Binding item at position: " + position);
-
-        holder.from.setText(requestArray.get(position).from);
-        holder.contact.setText(requestArray.get(position).contact);
-        holder.area.setText(requestArray.get(position).area);
-        holder.city.setText(requestArray.get(position).city);
-        holder.service.setText(requestArray.get(position).service);
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        RequestModel request = requestList.get(position);
+        holder.from.setText(request.getFrom());
+        holder.contact.setText(request.getContact());
+        holder.area.setText(request.getArea());
+        holder.city.setText(request.getCity());
+        holder.service.setText(request.getService());
+        holder.dateofbooking.setText(request.getBookdate());
     }
 
     @Override
     public int getItemCount() {
-        return requestArray.size();
+        return requestList.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
-        TextView from, contact, area, city, service;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        TextView from, contact, area, city, service, dateofbooking;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             from = itemView.findViewById(R.id.from);
             contact = itemView.findViewById(R.id.contact);
             area = itemView.findViewById(R.id.area);
             city = itemView.findViewById(R.id.city);
             service = itemView.findViewById(R.id.service);
-
+            dateofbooking = itemView.findViewById(R.id.dateofbooking);
         }
     }
 }
+

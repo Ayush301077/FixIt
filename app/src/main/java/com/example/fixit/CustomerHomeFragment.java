@@ -21,10 +21,14 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager.widget.ViewPager;
 import com.example.fixit.R;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
@@ -42,6 +46,7 @@ public class CustomerHomeFragment extends Fragment {
     RecyclerView categoryRecycler;
     TextView categoriesViewall, spviewall;
     FirebaseFirestore db;
+    CollectionReference collectionRef;
 
     public CustomerHomeFragment() {
         // Required empty public constructor
@@ -88,26 +93,46 @@ public class CustomerHomeFragment extends Fragment {
         ServiceProviderInfoAdapter adapter = new ServiceProviderInfoAdapter(getContext(),serviceProviderInfoArrayList);
         serviceproviderinfo.setAdapter(adapter);
         db = FirebaseFirestore.getInstance();
-        db.collection("Service providers")
-                .get()
-                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                    @Override
-                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                        for(DocumentSnapshot d : list)
-                        {
-                            ServiceProviderInfo obj = d.toObject(ServiceProviderInfo.class);
-                            serviceProviderInfoArrayList.add(obj);
-                        }
-                        adapter.notifyDataSetChanged();
+
+        collectionRef = db.collection("Service providers");
+        collectionRef.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    ArrayList<ServiceProviderInfo> itemList = new ArrayList<>();
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        String documentId = document.getId(); // Get document ID
+                        ServiceProviderInfo item = document.toObject(ServiceProviderInfo.class);
+                        item.setServiceProviderId(documentId); // Store document ID in your model
+                        itemList.add(item);  // Add item to the list
                     }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(getContext(), "Failed to get Service provider list", Toast.LENGTH_SHORT).show();
-                    }
-                });
+                    // Pass the list to your RecyclerView adapter
+                    adapter.setFilteredList(itemList);
+                }
+                else
+                    Toast.makeText(getContext(), "Failed to get Service provider list", Toast.LENGTH_SHORT).show();
+            }
+        });
+//        db.collection("Service providers")
+//                .get()
+//                .addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+//                    @Override
+//                    public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+//                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+//                        for(DocumentSnapshot d : list)
+//                        {
+//                            ServiceProviderInfo obj = d.toObject(ServiceProviderInfo.class);
+//                            serviceProviderInfoArrayList.add(obj);
+//                        }
+//                        adapter.notifyDataSetChanged();
+//                    }
+//                })
+//                .addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+//                        Toast.makeText(getContext(), "Failed to get Service provider list", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
 
         spviewall = view.findViewById(R.id.spviewall);
         spviewall.setOnClickListener(new View.OnClickListener() {

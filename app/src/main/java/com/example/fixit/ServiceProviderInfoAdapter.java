@@ -59,6 +59,7 @@ public class ServiceProviderInfoAdapter extends RecyclerView.Adapter<ServiceProv
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(holder.itemView.getContext(), ServiceProviderDetailsActivity.class);
+                intent.putExtra("serviceProviderId", info.getServiceProviderId());
                 intent.putExtra("name", info.name);
                 intent.putExtra("service", info.services);
                 intent.putExtra("contact", info.contact);

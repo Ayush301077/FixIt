@@ -11,13 +11,30 @@
 
     </style>
 
+    <style name="Base.Theme.FixIt.NoActionBar" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!-- Customize colorPrimary to change the Action Bar color -->
+        <item name="colorPrimary" type="color">@color/orange</item>
+        <!-- This controls the darker shade for the Action Bar or status bar -->
+        <item name="colorPrimaryVariant" type="color">@color/green</item>
+        <item name="colorOnPrimary" type="color">@color/white</item> <!-- Text color on Action Bar -->
+
+    </style>
+
     <style name="CircleImage" parent="">
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
 
+    <style name="CustomButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">@color/orange</item> <!-- Set your desired text color here -->
+    </style>
+
+
     <style name="booking" parent="Theme.MaterialComponents.DayNight.Dialog">
         <item name="colorAccent">@color/orange</item>
+        <item name="colorOnPrimary">@color/orange</item>
     </style>
 
 

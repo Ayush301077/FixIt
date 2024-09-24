@@ -1,10 +1,13 @@
 package com.example.fixit;
 
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.widget.SearchView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -23,6 +26,12 @@ public class CategoriesList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories_list);
+
+        ActionBar actionBar = getSupportActionBar();
+        ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#F44336"));
+        actionBar.setBackgroundDrawable(colorDrawable);
+        actionBar.setTitle("Categories");
+
 
         recyclerView = findViewById(R.id.servicesRecycler);
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));

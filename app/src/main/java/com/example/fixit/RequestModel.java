@@ -2,14 +2,34 @@ package com.example.fixit;
 
 public class RequestModel {
 
-    String from, contact, area, city, service;
+    String from, contact, area, city, service, bookdate;
+    String serviceProviderId;  // Add the ID field
 
-    public  RequestModel(String from, String contact, String area, String city, String service) {
+
+    public RequestModel(String from, String contact, String area, String city, String service, String bookdate,String serviceProviderId) {
         this.from = from;
         this.contact = contact;
         this.area = area;
         this.city = city;
         this.service = service;
+        this.bookdate = bookdate;
+        this.serviceProviderId =serviceProviderId;
+    }
+
+    public String getServiceProviderId() {
+        return serviceProviderId;
+    }
+
+    public void setServiceProviderId(String serviceProviderId) {
+        this.serviceProviderId = serviceProviderId;
+    }
+
+    public String getBookdate() {
+        return bookdate;
+    }
+
+    public void setBookdate(String bookdate) {
+        this.bookdate = bookdate;
     }
 
     public String getFrom() {
