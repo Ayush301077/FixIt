@@ -187,6 +187,13 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                                         .add(bookingRequest)
                                         .addOnSuccessListener(documentReference -> Toast.makeText(ServiceProviderDetailsActivity.this, "Booking request sent", Toast.LENGTH_SHORT).show())
                                         .addOnFailureListener(e -> Toast.makeText(ServiceProviderDetailsActivity.this, "Failed to send request", Toast.LENGTH_SHORT).show());
+
+                                db.collection("Customers")
+                                        .document(userId)
+                                        .collection("RequestedBookings")
+                                        .add(currentServiceProvider)
+                                        .addOnSuccessListener(documentReference -> Toast.makeText(ServiceProviderDetailsActivity.this, "Added to Requested Bookings", Toast.LENGTH_LONG).show())
+                                        .addOnFailureListener(e -> Toast.makeText(ServiceProviderDetailsActivity.this, "Failed to add to Requested Bookings", Toast.LENGTH_LONG).show());
                             });
                         } else {
                             Toast.makeText(ServiceProviderDetailsActivity.this, "Service not provided", Toast.LENGTH_SHORT).show();

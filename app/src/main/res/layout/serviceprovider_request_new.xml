@@ -157,19 +157,18 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <ImageView
-                android:id="@+id/imageView"
+                android:id="@+id/accept"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="58dp"
                 android:textSize="13sp"
-
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
                 app:srcCompat="@drawable/accept" />
 
             <ImageView
-                android:id="@+id/imageView2"
+                android:id="@+id/reject"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
                 android:layout_marginRight="20dp"

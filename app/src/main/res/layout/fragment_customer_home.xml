@@ -29,86 +29,19 @@
         app:layout_constraintLeft_toLeftOf="@id/viewPager"
         app:layout_constraintRight_toRightOf="@id/viewPager"/>
 
-    <SearchView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/searchview"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/viewPager"
-        android:background="@drawable/border"
-        android:queryHint="Search Here..."
-        android:iconifiedByDefault="false"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="50dp"/>
 
-    <ImageView
-        android:layout_width="43dp"
-        android:layout_height="41dp"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/border"
-        android:src="@drawable/filter"
-        android:layout_marginTop="4dp"
-        app:layout_constraintLeft_toRightOf="@id/searchview"
-        app:layout_constraintTop_toTopOf="@id/searchview" />
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/categoriesCardview"
-        android:layout_width="match_parent"
-        android:layout_height="175dp"
-        android:layout_marginTop="5dp"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp"
-        app:cardCornerRadius="20dp"
-        android:elevation="8dp"
-        app:cardElevation="8dp"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchview"
-        android:backgroundTint="#F4D5D5">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Categories"
-            android:textStyle="bold"
-            android:textSize="20sp"
-            android:layout_marginTop="5dp"
-            android:layout_marginLeft="20dp"/>
-
-        <TextView
-            android:id="@+id/categoriesViewall"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="View all"
-            android:layout_marginLeft="285dp"
-            android:layout_marginTop="5dp"
-            android:textSize="17sp"
-            android:padding="5dp"
-            android:textStyle="bold"
-            android:background="@drawable/border"
-            android:textColor="@color/orange"
-            />
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/categoriesRecycler"
-            android:layout_width="match_parent"
-            android:layout_height="110dp"
-            android:orientation="horizontal"
-            android:layout_marginTop="50dp"
-            android:layout_marginRight="10dp"
-            android:layout_marginLeft="10dp"/>
-
-    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="205dp"
+        android:layout_height="455dp"
         android:layout_marginTop="7dp"
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         app:cardCornerRadius="20dp"
         app:cardElevation="8dp"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/categoriesCardview"
+        app:layout_constraintTop_toBottomOf="@id/viewPager"
         android:backgroundTint="#F4D5D5">
 
         <TextView
@@ -136,7 +69,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/serviceproviderlist"
             android:layout_width="match_parent"
-            android:layout_height="110dp"
+            android:layout_height="400dp"
             android:layout_marginTop="50dp"
             android:layout_marginRight="10dp"
             android:layout_marginLeft="10dp"/>

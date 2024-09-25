@@ -28,6 +28,8 @@ public class HomeFragment extends Fragment {
     TextView newRequestsDropdown, acceptedRequestsDropdown;
     ArrayList<RequestModel> requestArray = new ArrayList<>();
     ArrayList<RequestModel> acceptedArray = new ArrayList<>();
+    NewRequestsAdapter newRequestsAdapter;
+    AcceptedRequestsAdapter acceptedRequestsAdapter;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -44,18 +46,6 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        // Setting up the dropdown for new requests
-        newRequestsDropdown = view.findViewById(R.id.newRequestsDropdown);
-        acceptedRequestsDropdown = view.findViewById(R.id.acceptedRequestsDropdown);
-
-        // Setting up RecyclerView for new requests
-        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Adapter for new requests
-        NewRequestsAdapter adapter = new NewRequestsAdapter(getContext(), requestArray);
-        recyclerView.setAdapter(adapter);
-
         // Firebase Firestore setup
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         String userIdFromIntent = getActivity().getIntent().getStringExtra("userId");
@@ -66,6 +56,30 @@ public class HomeFragment extends Fragment {
         } else {
             userId = userIdFromIntent;
         }
+
+        // Setting up the dropdown for new requests
+        newRequestsDropdown = view.findViewById(R.id.newRequestsDropdown);
+        acceptedRequestsDropdown = view.findViewById(R.id.acceptedRequestsDropdown);
+
+        // Setting up RecyclerView for accepted requests
+        RecyclerView recyclerView2 = view.findViewById(R.id.recyclerview2);
+        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Initialize the acceptedArray and acceptedRequestsAdapter
+        acceptedArray = new ArrayList<>();
+        acceptedRequestsAdapter = new AcceptedRequestsAdapter(getContext(), acceptedArray);
+        recyclerView2.setAdapter(acceptedRequestsAdapter);
+
+        // Setting up RecyclerView for new requests
+        RecyclerView recyclerView = view.findViewById(R.id.recyclerview);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Initialize the newRequestsAdapter and pass the acceptedRequestsAdapter
+        requestArray = new ArrayList<>();
+        newRequestsAdapter = new NewRequestsAdapter(getContext(), requestArray, acceptedRequestsAdapter, userId); // Now acceptedRequestsAdapter is initialized
+        recyclerView.setAdapter(newRequestsAdapter);
+
+
 
         // Listen to changes in the "newRequests" collection for the current service provider
         db.collection("Service providers")
@@ -101,7 +115,7 @@ public class HomeFragment extends Fragment {
                         }
 
                         // Notify the adapter that data has changed
-                        adapter.notifyDataSetChanged();
+                        newRequestsAdapter.notifyDataSetChanged();
                     }
                 });
 
@@ -121,14 +135,6 @@ public class HomeFragment extends Fragment {
                 isVisible = !isVisible;
             }
         });
-
-        // Setting up RecyclerView for accepted requests
-        RecyclerView recyclerView2 = view.findViewById(R.id.recyclerview2);
-        recyclerView2.setLayoutManager(new LinearLayoutManager(getContext()));
-
-        // Adapter for accepted requests
-        AcceptedRequestsAdapter adapter2 = new AcceptedRequestsAdapter(getContext(), acceptedArray);
-        recyclerView2.setAdapter(adapter2);
 
         // Listen to changes in the "acceptedRequests" collection for the current service provider
         db.collection("Service providers")
@@ -164,7 +170,7 @@ public class HomeFragment extends Fragment {
                         }
 
                         // Notify the adapter that data has changed
-                        adapter2.notifyDataSetChanged();
+                        acceptedRequestsAdapter.notifyDataSetChanged();
                     }
                 });
 

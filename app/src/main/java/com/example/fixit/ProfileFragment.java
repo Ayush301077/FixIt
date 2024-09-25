@@ -71,7 +71,6 @@ public class ProfileFragment extends Fragment {
         editProfile = view.findViewById(R.id.editProfilebutton);
 
         name = view.findViewById(R.id.name);
-        ratings = view.findViewById(R.id.ratings);
         contact = view.findViewById(R.id.contact);
         email = view.findViewById(R.id.email);
         street = view.findViewById(R.id.street);

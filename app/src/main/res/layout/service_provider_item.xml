@@ -13,7 +13,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:cardCornerRadius="20dp"
-        android:backgroundTint="#D7D7D7">
+        android:backgroundTint="#DEDEDE">
 
 
         <com.google.android.material.imageview.ShapeableImageView
@@ -58,7 +58,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="125dp"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="35dp"
             android:text="Contact :"
             android:textStyle="bold"
             android:textColor="@color/orange"/>
@@ -67,14 +67,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="6353805504"
-            android:layout_marginTop="25dp"
+            android:layout_marginTop="35dp"
             android:layout_marginLeft="190dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="125dp"
-            android:layout_marginTop="45dp"
+            android:layout_marginTop="65dp"
             android:text="Location :"
             android:textStyle="bold"
             android:textColor="@color/orange"/>
@@ -83,30 +83,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nadiad"
-            android:layout_marginTop="45dp"
-            android:layout_marginLeft="190dp"/>
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="125dp"
-            android:layout_marginTop="65dp"
-            android:text="Ratings :"
-            android:textStyle="bold"
-            android:textColor="@color/orange"/>
-        <TextView
-            android:id="@+id/ratings"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="4.5"
             android:layout_marginTop="65dp"
             android:layout_marginLeft="190dp"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="213dp"
-            android:layout_marginTop="65dp"
-            android:text="/ 5" />
         <TextView
             android:id="@+id/email"
             android:layout_width="0dp"

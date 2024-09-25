@@ -76,17 +76,6 @@ public class CustomerHomeFragment extends Fragment {
             userId = userIdFromIntent;
         }
 
-        categoryRecycler = view.findViewById(R.id.categoriesRecycler);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        categoryRecycler.setLayoutManager(layoutManager);
-        categoryarray.add(new CategoryModel("Car Service", R.drawable.services_medicinal));
-        categoryarray.add(new CategoryModel("Gardening Service", R.drawable.services_medicinal));
-        categoryarray.add(new CategoryModel("Maid Service", R.drawable.services_medicinal));
-        categoryarray.add(new CategoryModel("Plumbing Service", R.drawable.services_medicinal));
-        categoryarray.add(new CategoryModel("Electrician Service", R.drawable.services_medicinal));
-        CategoriesAdapter categoriesAdapter = new CategoriesAdapter(categoryarray,getContext());
-        categoryRecycler.setAdapter(categoriesAdapter);
-
 
         RecyclerView serviceproviderinfo = view.findViewById(R.id.serviceproviderlist);
         serviceproviderinfo.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -143,13 +132,6 @@ public class CustomerHomeFragment extends Fragment {
             }
         });
 
-        categoriesViewall = view.findViewById(R.id.categoriesViewall);
-        categoriesViewall.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getActivity(), CategoriesList.class));
-            }
-        });
     }
 
     @Override

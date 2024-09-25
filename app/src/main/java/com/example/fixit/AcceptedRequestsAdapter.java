@@ -1,7 +1,6 @@
 package com.example.fixit;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,32 +13,30 @@ import java.util.ArrayList;
 
 public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedRequestsAdapter.ViewHolder> {
 
-    ArrayList<RequestModel> requestArray;
-    Context context;
-    public AcceptedRequestsAdapter(Context context, ArrayList<RequestModel> requestArray){
+    private ArrayList<RequestModel> requestArray; // List of accepted requests
+    private Context context;
+
+    // Constructor for AcceptedRequestsAdapter
+    public AcceptedRequestsAdapter(Context context, ArrayList<RequestModel> requestArray) {
         this.context = context;
         this.requestArray = requestArray;
-
     }
 
     @NonNull
     @Override
-    public AcceptedRequestsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(context).inflate(R.layout.serviceprovider_request_accepted, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull AcceptedRequestsAdapter.ViewHolder holder, int position) {
-        Log.d("RecyclerView", "Binding item at position: " + position);
-
-        holder.from.setText(requestArray.get(position).from);
-        holder.contact.setText(requestArray.get(position).contact);
-        holder.area.setText(requestArray.get(position).area);
-        holder.city.setText(requestArray.get(position).city);
-        holder.service.setText(requestArray.get(position).service);
-
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        RequestModel request = requestArray.get(position);
+        holder.from.setText(request.getFrom());
+        holder.contact.setText(request.getContact());
+        holder.area.setText(request.getArea());
+        holder.city.setText(request.getCity());
+        holder.service.setText(request.getService());
     }
 
     @Override
@@ -47,18 +44,23 @@ public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedReques
         return requestArray.size();
     }
 
-    static class ViewHolder extends RecyclerView.ViewHolder{
+    // Method to add a request to the accepted list
+    public void addAcceptedRequest(RequestModel request) {
+        requestArray.add(request); // Add the new accepted request to the list
+        notifyItemInserted(requestArray.size() - 1); // Notify adapter of new item
+    }
+
+    // ViewHolder class to hold each accepted request's views
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView from, contact, area, city, service;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             from = itemView.findViewById(R.id.from);
             contact = itemView.findViewById(R.id.contact);
             area = itemView.findViewById(R.id.area);
             city = itemView.findViewById(R.id.city);
             service = itemView.findViewById(R.id.service);
-
         }
     }
 }
