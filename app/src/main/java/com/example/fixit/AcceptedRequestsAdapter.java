@@ -32,11 +32,12 @@ public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedReques
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         RequestModel request = requestArray.get(position);
-        holder.from.setText(request.getFrom());
+        holder.from.setText(request.getUserName());
         holder.contact.setText(request.getContact());
         holder.area.setText(request.getArea());
         holder.city.setText(request.getCity());
         holder.service.setText(request.getService());
+        holder.dateofbooking.setText(request.getBookingDate());
     }
 
     @Override
@@ -47,12 +48,18 @@ public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedReques
     // Method to add a request to the accepted list
     public void addAcceptedRequest(RequestModel request) {
         requestArray.add(request); // Add the new accepted request to the list
-        notifyItemInserted(requestArray.size() - 1); // Notify adapter of new item
+
+        requestArray.add(request); // Add the new accepted request to the list
+        int newPosition = requestArray.size() - 1;
+        if (newPosition >= 0) {
+            notifyItemInserted(newPosition);
+        }
     }
 
     // ViewHolder class to hold each accepted request's views
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView from, contact, area, city, service;
+        TextView dateofbooking;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +68,7 @@ public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedReques
             area = itemView.findViewById(R.id.area);
             city = itemView.findViewById(R.id.city);
             service = itemView.findViewById(R.id.service);
+            dateofbooking = itemView.findViewById(R.id.dateofbooking);
         }
     }
 }

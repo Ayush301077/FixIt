@@ -13,8 +13,6 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -44,12 +42,12 @@ public class NewRequestsAdapter extends RecyclerView.Adapter<NewRequestsAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, @SuppressLint("RecyclerView") int position) {
         RequestModel request = requestList.get(position);
-        holder.UserName.setText(request.getFrom());
+        holder.UserName.setText(request.getUserName());
         holder.contact.setText(request.getContact());
         holder.area.setText(request.getArea());
         holder.city.setText(request.getCity());
         holder.service.setText(request.getService());
-        holder.dateofbooking.setText(request.getBookdate());
+        holder.dateofbooking.setText(request.getBookingDate());
 
 
         db = FirebaseFirestore.getInstance();
@@ -60,36 +58,37 @@ public class NewRequestsAdapter extends RecyclerView.Adapter<NewRequestsAdapter.
                 RequestModel acceptedRequest = requestList.get(position); // The request being accepted
                 String serviceProviderId = acceptedRequest.getServiceProviderId(); // ID of the request to be updated
 
-                // 1. Move the request to "acceptedRequests" in Firestore
                 db.collection("Service providers")
                         .document(userId)
                         .collection("acceptedRequests")
-                        .document(acceptedRequest.getServiceProviderId())
-                        .set(acceptedRequest) // Add the accepted request to the "acceptedRequests" collection
+                        .add(acceptedRequest) // Add the accepted request to the "acceptedRequests" collection
                         .addOnSuccessListener(aVoid -> {
-                            // 2. Remove the request from "newRequests" in Firestore
                             db.collection("Service providers")
                                     .document(userId)
                                     .collection("newRequests")
-                                    .document(acceptedRequest.getServiceProviderId())
+                                    .document(serviceProviderId)  // Ensure the correct ID is being used
                                     .delete()
                                     .addOnSuccessListener(aVoid1 -> {
-                                        // 3. Update the UI: Remove from NewRequestsAdapter's list and notify the adapter
-                                        requestList.remove(position);
-                                        notifyItemRemoved(position);
-                                        notifyItemRangeChanged(position, requestList.size());
+                                        // 1. Ensure the position is valid before removing or updating the list
+                                        if (position < requestList.size()) {
+                                            // 2. Update the UI: Remove from NewRequestsAdapter's list and notify the adapter
+                                            requestList.remove(position);
+                                            notifyItemRemoved(position);
+                                            notifyItemRangeChanged(position, requestList.size());
 
-                                        // 4. Add the request to AcceptedRequestsAdapter
-                                        acceptedRequestsAdapter.addAcceptedRequest(acceptedRequest);
+                                            // 3. Add the request to AcceptedRequestsAdapter
+                                            acceptedRequestsAdapter.addAcceptedRequest(acceptedRequest);
+                                        } else {
+                                            // Log an error or handle unexpected position issues
+                                            Log.e("NewRequestsAdapter", "Invalid position: " + position);
+                                        }
                                     })
                                     .addOnFailureListener(e -> {
-                                        // Handle failure for deleting from "newRequests"
                                         Toast.makeText(context, "Failed deleting new request", Toast.LENGTH_SHORT).show();
                                     });
                         })
                         .addOnFailureListener(e -> {
-                            // Handle failure for adding to "acceptedRequests"
-                            Toast.makeText(context, "Failed deleting accepted request", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Failed accepting the request", Toast.LENGTH_LONG).show();
                         });
             }
         });
