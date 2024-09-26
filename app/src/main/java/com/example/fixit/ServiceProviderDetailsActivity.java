@@ -190,7 +190,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
 
                                 db.collection("Customers")
                                         .document(userId)
-                                        .collection("RequestedBookings")
+                                        .collection("PendingBookings")
                                         .add(currentServiceProvider)
                                         .addOnSuccessListener(documentReference -> Toast.makeText(ServiceProviderDetailsActivity.this, "Added to Requested Bookings", Toast.LENGTH_LONG).show())
                                         .addOnFailureListener(e -> Toast.makeText(ServiceProviderDetailsActivity.this, "Failed to add to Requested Bookings", Toast.LENGTH_LONG).show());

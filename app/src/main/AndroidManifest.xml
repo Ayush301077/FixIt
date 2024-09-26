@@ -10,10 +10,10 @@
         android:name="com.google.android.gms.version"
         android:value="@integer/google_play_services_version" />
 
-
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
+        android:enableOnBackInvokedCallback="true"
         android:fullBackupContent="@xml/backup_rules"
         android:icon="@drawable/applogo"
         android:label="@string/app_name"
@@ -21,6 +21,12 @@
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.FixIt"
         tools:targetApi="31">
+        <activity
+            android:name=".PendingSPDetailsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".PendingServiceProviderDetailsActivity"
+            android:exported="false" />
         <activity
             android:name=".CustomersEditProfileActivity"
             android:exported="false" />
@@ -39,7 +45,7 @@
         <activity
             android:name=".RoleSelectorActivity"
             android:exported="false"
-            android:theme="@style/Base.Theme.FixIt.NoActionBar"/> <!-- Service Provider Dashboard -->
+            android:theme="@style/Base.Theme.FixIt.NoActionBar" /> <!-- Service Provider Dashboard -->
         <activity
             android:name=".ServiceProviderDashboard"
             android:exported="false" /> <!-- Registration Activity -->
