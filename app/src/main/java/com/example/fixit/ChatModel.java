@@ -8,6 +8,7 @@ public class ChatModel {
         this.name = name;
         this.message = message;
         this.timestamp = timestamp;
+        //edited chat model
     }
 
     public String getName() {
