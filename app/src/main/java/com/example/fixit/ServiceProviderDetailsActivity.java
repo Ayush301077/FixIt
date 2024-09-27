@@ -34,7 +34,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     private FavoritesStorage favoritesStorage;
     private ServiceProviderInfo currentServiceProvider;
     private FirebaseFirestore db;
-    private String customerName, customerContact, area, city;  // To hold customer details
+    private String customerName, customerContact, area, city;// To hold customer details
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -191,7 +191,8 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                                 db.collection("Customers")
                                         .document(userId)
                                         .collection("PendingBookings")
-                                        .add(currentServiceProvider)
+                                        .document(serviceProviderId)
+                                        .set(currentServiceProvider)
                                         .addOnSuccessListener(documentReference -> Toast.makeText(ServiceProviderDetailsActivity.this, "Added to Requested Bookings", Toast.LENGTH_LONG).show())
                                         .addOnFailureListener(e -> Toast.makeText(ServiceProviderDetailsActivity.this, "Failed to add to Requested Bookings", Toast.LENGTH_LONG).show());
                             });

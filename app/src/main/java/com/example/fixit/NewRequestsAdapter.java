@@ -2,6 +2,7 @@ package com.example.fixit;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.ArrayList;
@@ -23,7 +25,7 @@ public class NewRequestsAdapter extends RecyclerView.Adapter<NewRequestsAdapter.
     private ArrayList<RequestModel> requestList;
     private AcceptedRequestsAdapter acceptedRequestsAdapter; // Reference to AcceptedRequestsAdapter
     private FirebaseFirestore db; // Firebase Firestore instance
-
+    ServiceProviderDetailsActivity id = new ServiceProviderDetailsActivity();
     // Constructor for NewRequestsAdapter
     public NewRequestsAdapter(Context context, ArrayList<RequestModel> requestList, AcceptedRequestsAdapter acceptedRequestsAdapter, String userId) {
         this.context = context;

@@ -49,7 +49,7 @@ public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedReques
     public void addAcceptedRequest(RequestModel request) {
         requestArray.add(request); // Add the new accepted request to the list
 
-        requestArray.add(request); // Add the new accepted request to the list
+//        requestArray.add(request); // Add the new accepted request to the list
         int newPosition = requestArray.size() - 1;
         if (newPosition >= 0) {
             notifyItemInserted(newPosition);

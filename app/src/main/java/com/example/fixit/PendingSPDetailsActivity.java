@@ -19,10 +19,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 public class PendingSPDetailsActivity extends AppCompatActivity {
 
+    String acceptedRequestId;
     private Button completedService;
     private PendingServiceModel currentServiceProvider;
     private FirebaseFirestore db;
@@ -30,11 +33,14 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
     private String customerName, customerContact, area, city;  // To hold customer details
     private SharedPreferences prefs;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pending_spdetails);
 
+        // Set ActionBar background color and title
         ActionBar actionBar = getSupportActionBar();
         ColorDrawable colorDrawable = new ColorDrawable(Color.parseColor("#F44336"));
         actionBar.setBackgroundDrawable(colorDrawable);
@@ -51,7 +57,6 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
         if (userId != null) {
             fetchCustomerDetails(userId);  // Fetch customer info before booking
         }
-
         // Set up service provider details
         ImageView profileImageView = findViewById(R.id.profileImage);
         TextView nameTextView = findViewById(R.id.name);
@@ -62,6 +67,7 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
 
         // Extract service provider's data from the Intent
         String serviceProviderId = getIntent().getStringExtra("serviceProviderId");
+        Log.d("ServiceProviderId", serviceProviderId);
         String name = getIntent().getStringExtra("name");
         String contact = getIntent().getStringExtra("contact");
         String city = getIntent().getStringExtra("location");
@@ -69,7 +75,8 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
         String profileImageUrl = getIntent().getStringExtra("profileImage");
         String email = getIntent().getStringExtra("email");
 
-        // Create the ServiceProviderInfo object
+
+        // Create the PendingServiceModel object
         currentServiceProvider = new PendingServiceModel(name, services, contact, city, profileImageUrl, email, serviceProviderId);
 
         // Set data to views
@@ -85,6 +92,7 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
                 .placeholder(R.drawable.profile_icon)
                 .into(profileImageView);
 
+        // Handle completion of service
         completedService = findViewById(R.id.completedService);
         completedService.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,25 +100,30 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
                 Dialog completedServiceDialog = new Dialog(PendingSPDetailsActivity.this);
                 completedServiceDialog.setContentView(R.layout.completed_service_dialog);
                 confirm = completedServiceDialog.findViewById(R.id.confirmDialog);
+
                 confirm.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        // Move the service provider from PendingBookings to CompletedBookings
+                        // Mark service as completed: Move from PendingBookings to CompletedBookings
                         String userId = prefs.getString("userId", null);
                         if (userId != null) {
+                            // Remove from PendingBookings
                             db.collection("Customers").document(userId)
                                     .collection("PendingBookings").document(currentServiceProvider.getServiceProviderId())
                                     .delete()
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
                                         public void onSuccess(Void aVoid) {
+                                            // Move to CompletedBookings
                                             db.collection("Customers").document(userId)
                                                     .collection("CompletedBookings").document(currentServiceProvider.getServiceProviderId())
                                                     .set(currentServiceProvider)
                                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                         @Override
                                                         public void onSuccess(Void aVoid) {
+                                                            // Notify success and remove from acceptedRequests
                                                             Toast.makeText(PendingSPDetailsActivity.this, "Service marked as completed!", Toast.LENGTH_SHORT).show();
+                                                            removeServiceFromAcceptedRequests(serviceProviderId, userId);  // New method to remove from acceptedRequests
                                                             completedServiceDialog.dismiss();
                                                             finish(); // Close the current activity
                                                         }
@@ -132,9 +145,39 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
                         }
                     }
                 });
+
                 completedServiceDialog.show();
             }
         });
+    }
+
+    // New method to remove the service from acceptedRequests in the Service providers collection
+    private void removeServiceFromAcceptedRequests(String serviceProviderId, String customerId) {
+        Log.d("Firestore", "Attempting to remove service from acceptedRequests.");
+        Log.d("Firestore", "ServiceProviderId: " + serviceProviderId);
+        Log.d("Firestore", "CustomerId: " + customerId);
+
+        db.collection("Service providers")
+                .document(serviceProviderId)
+                .collection("acceptedRequests")
+                .whereEqualTo("contact", customerContact)
+                .get()
+                .addOnSuccessListener(querySnapshot -> {
+                    for (DocumentSnapshot document : querySnapshot.getDocuments()) {
+                        document.getReference().delete()
+                                .addOnSuccessListener(aVoid -> {
+                                    Log.d("Firestore", "Service removed from acceptedRequests.");
+                                })
+                                .addOnFailureListener(e -> {
+                                    Toast.makeText(PendingSPDetailsActivity.this, "Failed to remove service from accepted requests.", Toast.LENGTH_SHORT).show();
+                                    Log.e("Firestore", "Error removing service from acceptedRequests: " + e.getMessage());
+                                });
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    Toast.makeText(PendingSPDetailsActivity.this, "Failed to remove service from accepted requests.", Toast.LENGTH_SHORT).show();
+                    Log.e("Firestore", "Error fetching acceptedRequests: " + e.getMessage());
+                });
     }
 
     // Method to fetch customer details from Firestore
