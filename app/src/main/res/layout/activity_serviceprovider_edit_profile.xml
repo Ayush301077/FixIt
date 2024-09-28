@@ -135,6 +135,31 @@
         app:layout_constraintTop_toBottomOf="@+id/city"
         app:layout_constraintLeft_toRightOf="@id/textView26"/>
 
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="48dp"
+        android:text="Charges :"
+        android:textColor="@color/orange"
+        android:textStyle="bold"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView26" />
+
+    <EditText
+        android:id="@+id/charges"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="28dp"
+        android:hint="Charge your services"
+        android:textSize="20sp"
+        app:layout_constraintLeft_toRightOf="@id/textView28"
+        app:layout_constraintTop_toBottomOf="@id/services" />
+
+
     <Button
         android:id="@+id/save"
         android:layout_width="wrap_content"

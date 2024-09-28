@@ -110,7 +110,8 @@ public class HomeFragment extends Fragment {
                                     request.getCity(),
                                     request.getService(),
                                     request.getBookingDate(),
-                                    serviceProviderId  // Pass the serviceProviderId here
+                                    serviceProviderId,// Pass the serviceProviderId here
+                                    request.getCharges()
                             ));
                         }
 
@@ -165,7 +166,8 @@ public class HomeFragment extends Fragment {
                                     request.getCity(),
                                     request.getService(),
                                     request.getBookingDate(),
-                                    serviceProviderId  // Pass the serviceProviderId here
+                                    serviceProviderId,  // Pass the serviceProviderId here
+                                    request.getCharges()
                             ));
                         }
 

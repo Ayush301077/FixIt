@@ -21,6 +21,12 @@ public class RecentEarningsAdapter extends RecyclerView.Adapter<RecentEarningsAd
         this.recentEarningsArray = recentEarningsArray;
     }
 
+    public void updateData(ArrayList<RecentEarningsModel> recentEarningsArray) {
+        this.recentEarningsArray.clear();
+        this.recentEarningsArray.addAll(recentEarningsArray);
+        notifyDataSetChanged();
+    }
+
     @NonNull
     @Override
     public RecentEarningsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

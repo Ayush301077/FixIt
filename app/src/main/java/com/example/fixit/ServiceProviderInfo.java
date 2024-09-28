@@ -7,6 +7,7 @@ public class ServiceProviderInfo implements Serializable {
     String profileImage;
     String email;
     String serviceProviderId;
+    String charges;
 
 
     public ServiceProviderInfo() {
@@ -29,7 +30,7 @@ public class ServiceProviderInfo implements Serializable {
     }
 
 
-    public ServiceProviderInfo(String name, String service, String contact, String city, String profileImage, String email,String serviceProviderId) {
+    public ServiceProviderInfo(String name, String service, String contact, String city, String profileImage, String email,String serviceProviderId, String charges) {
         this.name = name;
         this.services = service;
         this.contact = contact;
@@ -37,7 +38,16 @@ public class ServiceProviderInfo implements Serializable {
         this.profileImage = profileImage;
         this.email = email;
         this.serviceProviderId = serviceProviderId;
+        this.charges = charges;
 
+    }
+
+    public String getCharges() {
+        return charges;
+    }
+
+    public void setCharges(String charges) {
+        this.charges = charges;
     }
 
     public String getServiceProviderId() {

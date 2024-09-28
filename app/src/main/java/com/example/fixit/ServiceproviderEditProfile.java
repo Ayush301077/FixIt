@@ -34,7 +34,7 @@ import java.util.HashMap;
 
 public class ServiceproviderEditProfile extends AppCompatActivity {
 
-    TextView name, contact, email, street, city, services;
+    TextView name, contact, email, street, city, services, charges;
     ShapeableImageView profile_image;
     Button save;
     FirebaseFirestore db;
@@ -63,6 +63,7 @@ public class ServiceproviderEditProfile extends AppCompatActivity {
         city = findViewById(R.id.city);
         services = findViewById(R.id.services);
         save = findViewById(R.id.save);
+        charges = findViewById(R.id.charges);
 
         // Firebase instances
         db = FirebaseFirestore.getInstance();
@@ -111,6 +112,7 @@ public class ServiceproviderEditProfile extends AppCompatActivity {
                 String streetStr = street.getText().toString();
                 String cityStr = city.getText().toString();
                 String servicesStr = services.getText().toString();
+                String chargesStr = charges.getText().toString();
 
                 // Logging for debugging
                 Log.d(TAG, "Profile Data: " + nameStr + ", " + contactStr + ", " + emailStr + ", " + streetStr + ", " + cityStr + ", " + servicesStr);
@@ -131,7 +133,7 @@ public class ServiceproviderEditProfile extends AppCompatActivity {
                                     String imageUrl = uri.toString();
 
                                     // Now that we have the image URL, we can update the profile data
-                                    updateProfile(userId, nameStr, contactStr, emailStr, streetStr, cityStr, servicesStr, imageUrl);
+                                    updateProfile(userId, nameStr, contactStr, emailStr, streetStr, cityStr, servicesStr, imageUrl,chargesStr);
                                 }
                             }).addOnFailureListener(new OnFailureListener() {
                                 @Override
@@ -150,14 +152,14 @@ public class ServiceproviderEditProfile extends AppCompatActivity {
                     });
                 } else {
                     // If no image was selected, just update the profile without image
-                    updateProfile(userId, nameStr, contactStr, emailStr, streetStr, cityStr, servicesStr, null);
+                    updateProfile(userId, nameStr, contactStr, emailStr, streetStr, cityStr, servicesStr, null,chargesStr);
                 }
             }
         });
     }
 
     // Method to update profile data in Firestore
-    private void updateProfile(String userId, String name, String contact, String email, String street, String city, String services, String imageUrl) {
+    private void updateProfile(String userId, String name, String contact, String email, String street, String city, String services, String imageUrl,String charges) {
         // Create a HashMap to store the profile data
         HashMap<String, Object> serviceProvider = new HashMap<>();
         serviceProvider.put("name", name);
@@ -166,6 +168,7 @@ public class ServiceproviderEditProfile extends AppCompatActivity {
         serviceProvider.put("street", street);
         serviceProvider.put("city", city);
         serviceProvider.put("services", services);
+        serviceProvider.put("charges", charges);
 
         // If imageUrl is not null, add it to the profile data
         if (imageUrl != null) {

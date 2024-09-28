@@ -1,7 +1,12 @@
 package com.example.fixit;
 
-public class RecentEarningsModel {
+import java.io.Serializable;
+
+public class RecentEarningsModel implements Serializable {
     String date, customer, service, contact, earned;
+
+    public RecentEarningsModel() {
+    }
 
     public RecentEarningsModel(String date, String customer, String service, String contact, String earned) {
         this.date = date;

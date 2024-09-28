@@ -34,7 +34,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
     private FavoritesStorage favoritesStorage;
     private ServiceProviderInfo currentServiceProvider;
     private FirebaseFirestore db;
-    private String customerName, customerContact, area, city;// To hold customer details
+    private String customerName, customerContact, area, city, charges;// To hold customer details
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,7 +54,6 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         favoriteButton = findViewById(R.id.favorite);
         bookservice = findViewById(R.id.bookservice);
         message = findViewById(R.id.message);
-        withdrawservice = findViewById(R.id.withdrawservice);
 
         // Retrieve the userId from SharedPreferences
         SharedPreferences prefs = getSharedPreferences("FixItApp", MODE_PRIVATE);
@@ -74,6 +73,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         TextView cityTextView = findViewById(R.id.city);
         TextView servicesTextView = findViewById(R.id.services);
         TextView emailTextView = findViewById(R.id.email);
+        TextView chargesTextView = findViewById(R.id.charges);
 
         // Extract service provider's data from the Intent
         String serviceProviderId = getIntent().getStringExtra("serviceProviderId");
@@ -83,9 +83,10 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         String services = getIntent().getStringExtra("service");
         String profileImageUrl = getIntent().getStringExtra("profileImage");
         String email = getIntent().getStringExtra("email");
+        String charges = getIntent().getStringExtra("charges");
 
         // Create the ServiceProviderInfo object
-        currentServiceProvider = new ServiceProviderInfo(name, services, contact, city, profileImageUrl, email, serviceProviderId);
+        currentServiceProvider = new ServiceProviderInfo(name, services, contact, city, profileImageUrl, email, serviceProviderId,charges);
 
         // Set data to views
         nameTextView.setText(name);
@@ -93,6 +94,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
         cityTextView.setText(city);
         servicesTextView.setText(services);
         emailTextView.setText(email);
+        chargesTextView.setText(charges);
 
         // Load the profile image using Glide
         Glide.with(this)
@@ -178,7 +180,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
 
                             confirm.setOnClickListener(v1 -> {
                                 // Create BookingRequest with customer details fetched from Firestore
-                                BookingRequest bookingRequest = new BookingRequest(customerName, customerContact, area, city, requiredService, bookdate, serviceProviderId);
+                                BookingRequest bookingRequest = new BookingRequest(customerName, customerContact, area, city, requiredService, bookdate, serviceProviderId,charges);
 
                                 // Send booking request to service provider via Firestore
                                 db.collection("Service providers")
@@ -216,6 +218,7 @@ public class ServiceProviderDetailsActivity extends AppCompatActivity {
                         customerContact = documentSnapshot.getString("contact");
                         area = documentSnapshot.getString("area");
                         city = documentSnapshot.getString("city");
+                        charges = documentSnapshot.getString("charges");
                     }
                 })
                 .addOnFailureListener(e -> Log.e("Firestore", "Error fetching customer details: " + e.getMessage()));

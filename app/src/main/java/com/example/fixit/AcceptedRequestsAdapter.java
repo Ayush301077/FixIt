@@ -38,6 +38,7 @@ public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedReques
         holder.city.setText(request.getCity());
         holder.service.setText(request.getService());
         holder.dateofbooking.setText(request.getBookingDate());
+        holder.charges.setText(request.getCharges());
     }
 
     @Override
@@ -59,7 +60,7 @@ public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedReques
     // ViewHolder class to hold each accepted request's views
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView from, contact, area, city, service;
-        TextView dateofbooking;
+        TextView dateofbooking, charges;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -69,6 +70,7 @@ public class AcceptedRequestsAdapter extends RecyclerView.Adapter<AcceptedReques
             city = itemView.findViewById(R.id.city);
             service = itemView.findViewById(R.id.service);
             dateofbooking = itemView.findViewById(R.id.dateofbooking);
+            charges = itemView.findViewById(R.id.charges);
         }
     }
 }

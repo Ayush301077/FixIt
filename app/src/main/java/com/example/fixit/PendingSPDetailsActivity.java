@@ -19,9 +19,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class PendingSPDetailsActivity extends AppCompatActivity {
 
@@ -30,7 +34,7 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
     private PendingServiceModel currentServiceProvider;
     private FirebaseFirestore db;
     private Button confirm;
-    private String customerName, customerContact, area, city;  // To hold customer details
+    private String customerName, customerContact, area, city, charges;  // To hold customer details
     private SharedPreferences prefs;
 
 
@@ -64,6 +68,7 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
         TextView cityTextView = findViewById(R.id.city);
         TextView servicesTextView = findViewById(R.id.services);
         TextView emailTextView = findViewById(R.id.email);
+        TextView chargesTextView = findViewById(R.id.charges);
 
         // Extract service provider's data from the Intent
         String serviceProviderId = getIntent().getStringExtra("serviceProviderId");
@@ -74,10 +79,11 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
         String services = getIntent().getStringExtra("service");
         String profileImageUrl = getIntent().getStringExtra("profileImage");
         String email = getIntent().getStringExtra("email");
+        String charges = getIntent().getStringExtra("charges");
 
 
         // Create the PendingServiceModel object
-        currentServiceProvider = new PendingServiceModel(name, services, contact, city, profileImageUrl, email, serviceProviderId);
+        currentServiceProvider = new PendingServiceModel(name, services, contact, city, profileImageUrl, email, serviceProviderId, charges);
 
         // Set data to views
         nameTextView.setText(name);
@@ -85,6 +91,7 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
         cityTextView.setText(city);
         servicesTextView.setText(services);
         emailTextView.setText(email);
+        chargesTextView.setText(charges);
 
         // Load the profile image using Glide
         Glide.with(this)
@@ -124,6 +131,7 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
                                                             // Notify success and remove from acceptedRequests
                                                             Toast.makeText(PendingSPDetailsActivity.this, "Service marked as completed!", Toast.LENGTH_SHORT).show();
                                                             removeServiceFromAcceptedRequests(serviceProviderId, userId);  // New method to remove from acceptedRequests
+                                                            addEarningsData(serviceProviderId, userId);
                                                             completedServiceDialog.dismiss();
                                                             finish(); // Close the current activity
                                                         }
@@ -149,6 +157,42 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
                 completedServiceDialog.show();
             }
         });
+    }
+
+
+    private void addEarningsData(String serviceProviderId, String userId) {
+        String date = getCurrentDate();
+        String customer = customerName;
+        String service = currentServiceProvider.getServices();
+        String contact = customerContact;
+        String earned = currentServiceProvider.getCharges();
+
+        RecentEarningsModel earningsModel = new RecentEarningsModel(date, customer, service, contact, earned);
+
+        db.collection("Service providers").document(serviceProviderId)
+                .collection("Earnings")
+                .add(earningsModel)
+                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                    @Override
+                    public void onSuccess(DocumentReference documentReference) {
+                        Log.d("Firestore", "Earnings added successfully");
+                    }
+                })
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.e("Firestore", "Error adding earnings: " + e.getMessage());
+                    }
+                });
+    }
+
+    private String getCurrentDate() {
+        LocalDate today = LocalDate.now();
+
+        // Format the date
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        String formattedDate = today.format(formatter);
+        return formattedDate;
     }
 
     // New method to remove the service from acceptedRequests in the Service providers collection
@@ -190,6 +234,7 @@ public class PendingSPDetailsActivity extends AppCompatActivity {
                         customerContact = documentSnapshot.getString("contact");
                         area = documentSnapshot.getString("area");
                         city = documentSnapshot.getString("city");
+                        charges = documentSnapshot.getString("charges");
                     }
                 })
                 .addOnFailureListener(e -> Log.e("Firestore", "Error fetching customer details: " + e.getMessage()));

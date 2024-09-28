@@ -7,13 +7,14 @@ public class BookingRequest {
     private String city;
     private String service;
     private String bookingDate;
-    String serviceProviderId;  // Add the ID field
+    String serviceProviderId;// Add the ID field
+    private  String charges;
 
 
     public BookingRequest() {
     }
 
-    public BookingRequest(String userName, String contact, String area, String city, String service, String bookingDate,String serviceProviderId) {
+    public BookingRequest(String userName, String contact, String area, String city, String service, String bookingDate,String serviceProviderId, String charges) {
         this.userName = userName;
         this.contact = contact;
         this.area = area;
@@ -21,6 +22,15 @@ public class BookingRequest {
         this.service = service;
         this.bookingDate = bookingDate;
         this.serviceProviderId = serviceProviderId;
+        this.charges = charges;
+    }
+
+    public String getCharges() {
+        return charges;
+    }
+
+    public void setCharges(String charges) {
+        this.charges = charges;
     }
 
     public String getServiceProviderId() {

@@ -3,10 +3,10 @@ package com.example.fixit;
 public class RequestModel {
 
     String userName, contact, area, city, service, bookingDate;
-    String serviceProviderId;  // Add the ID field
+    String serviceProviderId, charges;  // Add the ID field
 
 
-    public RequestModel(String userName, String contact, String area, String city, String service, String bookingDate,String serviceProviderId) {
+    public RequestModel(String userName, String contact, String area, String city, String service, String bookingDate,String serviceProviderId, String charges) {
         this.userName = userName;
         this.contact = contact;
         this.area = area;
@@ -14,6 +14,15 @@ public class RequestModel {
         this.service = service;
         this.bookingDate = bookingDate;
         this.serviceProviderId =serviceProviderId;
+        this.charges = charges;
+    }
+
+    public String getCharges() {
+        return charges;
+    }
+
+    public void setCharges(String charges) {
+        this.charges = charges;
     }
 
     public String getServiceProviderId() {

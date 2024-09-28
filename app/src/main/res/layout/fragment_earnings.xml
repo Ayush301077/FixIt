@@ -45,6 +45,7 @@
             android:src="@drawable/baseline_currency_rupee_24" />
 
         <TextView
+            android:id="@+id/totalEarnedMoney"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="45dp"

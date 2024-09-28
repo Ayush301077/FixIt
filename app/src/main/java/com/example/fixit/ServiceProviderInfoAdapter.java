@@ -49,6 +49,7 @@ public class ServiceProviderInfoAdapter extends RecyclerView.Adapter<ServiceProv
         holder.service.setText(info.services);
         holder.contact.setText(info.contact);
         holder.location.setText(info.city);
+        holder.charges.setText(info.charges);
 
         Glide.with(context)
                 .load(info.getProfileImage()) // URL of the image
@@ -66,6 +67,7 @@ public class ServiceProviderInfoAdapter extends RecyclerView.Adapter<ServiceProv
                 intent.putExtra("location", info.city);
                 intent.putExtra("profileImage", info.getProfileImage());
                 intent.putExtra("email", info.email);
+                intent.putExtra("charges", info.charges);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 holder.itemView.getContext().startActivity(intent);
             }
@@ -85,7 +87,7 @@ public class ServiceProviderInfoAdapter extends RecyclerView.Adapter<ServiceProv
 
     static class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView name, service, contact, location;
+        TextView name, service, contact, location, charges;
         ImageView profileImage;
 
         public ViewHolder(@NonNull View itemView) {
@@ -95,6 +97,7 @@ public class ServiceProviderInfoAdapter extends RecyclerView.Adapter<ServiceProv
             contact = itemView.findViewById(R.id.contact);
             location = itemView.findViewById(R.id.location);
             profileImage = itemView.findViewById(R.id.profileImage);
+            charges = itemView.findViewById(R.id.charges);
         }
     }
 }

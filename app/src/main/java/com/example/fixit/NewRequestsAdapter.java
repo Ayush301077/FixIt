@@ -50,6 +50,7 @@ public class NewRequestsAdapter extends RecyclerView.Adapter<NewRequestsAdapter.
         holder.city.setText(request.getCity());
         holder.service.setText(request.getService());
         holder.dateofbooking.setText(request.getBookingDate());
+        holder.charges.setText(request.getCharges());
 
 
         db = FirebaseFirestore.getInstance();
@@ -98,10 +99,36 @@ public class NewRequestsAdapter extends RecyclerView.Adapter<NewRequestsAdapter.
         // Handle "Reject" button click (optional)
         holder.reject.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                // If you want to add rejection functionality, handle it here
+            public void onClick(View view) {
+                RequestModel rejectedRequest = requestList.get(position); // The request being rejected
+                String serviceProviderId = rejectedRequest.getServiceProviderId(); // Get the document ID for Firestore
+
+                // Remove the request from Firestore's "newRequests" collection
+                db.collection("Service providers")
+                        .document(userId)
+                        .collection("newRequests")
+                        .document(serviceProviderId)  // Use the serviceProviderId to delete the correct document
+                        .delete()
+                        .addOnSuccessListener(aVoid -> {
+                            // 1. Ensure the position is valid before removing or updating the list
+                            if (position < requestList.size()) {
+                                // 2. Remove from the list and notify the adapter
+                                requestList.remove(position);
+                                notifyItemRemoved(position);
+                                notifyItemRangeChanged(position, requestList.size());
+
+                                // Optionally show a success message to the user
+                                Toast.makeText(context, "Request rejected successfully", Toast.LENGTH_SHORT).show();
+                            } else {
+                                Log.e("NewRequestsAdapter", "Invalid position: " + position);
+                            }
+                        })
+                        .addOnFailureListener(e -> {
+                            Toast.makeText(context, "Failed to reject the request", Toast.LENGTH_SHORT).show();
+                        });
             }
         });
+
     }
 
     @Override
@@ -111,7 +138,7 @@ public class NewRequestsAdapter extends RecyclerView.Adapter<NewRequestsAdapter.
 
     // ViewHolder class to hold each request's views
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView UserName, contact, area, city, service, dateofbooking;
+        TextView UserName, contact, area, city, service, dateofbooking,charges;
         ImageView accept, reject;
 
         public ViewHolder(@NonNull View itemView) {
@@ -124,6 +151,7 @@ public class NewRequestsAdapter extends RecyclerView.Adapter<NewRequestsAdapter.
             dateofbooking = itemView.findViewById(R.id.dateofbooking);
             accept = itemView.findViewById(R.id.accept);
             reject = itemView.findViewById(R.id.reject);
+            charges =itemView.findViewById(R.id.charges);
         }
     }
 

@@ -35,7 +35,7 @@ import java.net.URL;
 
 public class ProfileFragment extends Fragment {
 
-    TextView name, ratings, contact, email, street, city, services;
+    TextView name, charges, contact, email, street, city, services;
     ShapeableImageView profile_image;
     Button logout, uploadData, editProfile;
     FirebaseFirestore db;
@@ -77,6 +77,7 @@ public class ProfileFragment extends Fragment {
         city = view.findViewById(R.id.city);
         services = view.findViewById(R.id.services);
         profile_image = view.findViewById(R.id.profile_image);
+        charges = view.findViewById(R.id.charges);
 
         // Reference to the profile document
         DocumentReference docRef = db.collection("Service providers").document(userId);
@@ -92,6 +93,7 @@ public class ProfileFragment extends Fragment {
                     street.setText(documentSnapshot.getString("street"));
                     city.setText(documentSnapshot.getString("city"));
                     services.setText(documentSnapshot.getString("services"));
+                    charges.setText(documentSnapshot.getString("charges"));
 
                     // Get the profile image URL from Firestore
                     String profileImageUrl = documentSnapshot.getString("profileImage");

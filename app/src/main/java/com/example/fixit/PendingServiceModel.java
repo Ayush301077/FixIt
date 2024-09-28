@@ -7,7 +7,7 @@ public class PendingServiceModel implements Serializable{
     String name, services, contact, city;
     String profileImage;
     String email;
-    String serviceProviderId;
+    String serviceProviderId, charges;
 
     public PendingServiceModel() {
     }
@@ -27,7 +27,15 @@ public class PendingServiceModel implements Serializable{
         return email != null ? email.hashCode() : 0;
     }
 
-    public PendingServiceModel(String name, String services, String contact, String city, String profileImage, String email, String serviceProviderId) {
+    public String getCharges() {
+        return charges;
+    }
+
+    public void setCharges(String charges) {
+        this.charges = charges;
+    }
+
+    public PendingServiceModel(String name, String services, String contact, String city, String profileImage, String email, String serviceProviderId, String charges) {
         this.name = name;
         this.services = services;
         this.contact = contact;
@@ -35,6 +43,7 @@ public class PendingServiceModel implements Serializable{
         this.profileImage = profileImage;
         this.email = email;
         this.serviceProviderId = serviceProviderId;
+        this.charges = charges;
     }
     public String getServiceProviderId() {
         return serviceProviderId;

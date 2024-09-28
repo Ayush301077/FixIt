@@ -59,7 +59,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="125dp"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="30dp"
             android:text="Contact :"
             android:textStyle="bold"
             android:textColor="@color/orange"/>
@@ -68,14 +68,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="6353805504"
-            android:layout_marginTop="35dp"
+            android:layout_marginTop="30dp"
             android:layout_marginLeft="190dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="125dp"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="55dp"
             android:text="Location :"
             android:textStyle="bold"
             android:textColor="@color/orange"/>
@@ -84,16 +84,26 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nadiad"
-            android:layout_marginTop="65dp"
+            android:layout_marginTop="55dp"
             android:layout_marginLeft="190dp"/>
 
         <TextView
-            android:id="@+id/email"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginLeft="213dp"
-            android:layout_marginTop="65dp"
-            android:text="" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="125dp"
+            android:layout_marginTop="80dp"
+            android:text="Charges :"
+            android:textStyle="bold"
+            android:textColor="@color/orange"/>
+        <TextView
+            android:id="@+id/charges"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="500"
+            android:layout_marginTop="80dp"
+            android:layout_marginLeft="190dp"/>
+
+
 
     </androidx.cardview.widget.CardView>
 
